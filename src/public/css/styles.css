@@ -1,0 +1,101 @@
+.mixer {
+  width: 570px;
+  height: 500px;
+
+  position:absolute; /*it can be fixed too*/
+  left:0; right:0;
+  top:0; bottom:0;
+  margin:auto;
+
+  /*this to solve "the content will not be cut when the window is smaller than the content": */
+  max-width:100%;
+  max-height:100%;
+  overflow:auto;
+}
+
+.nav {
+  text-align: center;
+  width: 570px;
+  height: 20px;
+  margin:auto;
+
+  /*this to solve "the content will not be cut when the window is smaller than the content": */
+  max-width:100%;
+  max-height:100%;
+  overflow:auto;
+}
+
+.save-button {
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  margin:auto;
+  background-color: white;
+  color: black;
+  border: 2px solid black; /* Green */
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.save-button:hover {opacity: 1}
+
+body {
+  font: 400 10px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+
+h1 {
+  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font: 400 25px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  font: 400 15px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+  border: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+  display: block;
+}
+
+li a:hover {
+  font-size: 20px;
+  background: #f6f6f6;
+}

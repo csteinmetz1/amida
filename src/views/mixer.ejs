@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>amida | song: <%= song.id %> </title>
+	<link rel="stylesheet" href="/css/styles.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.7.4/Tone.js"></script>
+	<script src="https://tonejs.github.io/examples/js/tonejs-ui.js"></script>
+</head>
+
+<body>
+    <section>
+		<div class="mixer">
+			<h2 style="text-align: center;"> <%= song.id %> - <%= song.artist %> - <%= song.title %></h2>
+			<div class="nav"> 
+				<p>
+					<a href="/mixer/<%= song.id + -2 %>">Prev</a> | 
+					<a href="/">Songs</a> |
+					<a href="/mixer/<%= song.id %>">Next</a>
+				</p>
+			</div>
+			<tone-content>
+				<div id="tracks">
+					<tone-channel label="bass" id="bass"></tone-channel>
+					<tone-channel label="drums" id="drums"></tone-channel>
+					<tone-channel label="other" id="other"></tone-channel>
+					<tone-channel label="vocals" id="vocals"></tone-channel>
+				</div>
+				<tone-play-toggle></tone-play-toggle>
+			</tone-content>
+			<button class="save-button">
+				<a id="save" href="" onclick="save();return false;">Save</a>
+			</div>
+		</div>
+
+	</section>
+
+	<script type="text/javascript">
+		function makeChannel(name, url){
+			var channel = new Tone.Channel().toMaster();
+			var player = new Tone.Player({
+				url : url,
+				loop : true
+			}).sync().start(0);
+			player.chain(channel);
+			//bind the UI
+			document.querySelector(`#${name}`).bind(channel);
+		}
+
+		function removePans() {
+			var channels = document.getElementsByTagName("tone-channel");
+
+			for (var idx = 0; idx<channels.length; idx++) {
+				channels[idx].shadowRoot.childNodes[4].childNodes[5].remove();
+			}
+		}
+
+		makeChannel("bass",   "/<%= song.tracks.mono['bass'] %>"   );
+		makeChannel("drums",  "/<%= song.tracks.mono['drums'] %>"  );
+		makeChannel("other",  "/<%= song.tracks.mono['other'] %>"  );
+		makeChannel("vocals", "/<%= song.tracks.mono['vocals'] %>" );
+		document.querySelector("tone-play-toggle").bind(Tone.Transport);
+		removePans();
+	</script>
+</body>
+</html>
