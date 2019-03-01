@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>amida</title>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="home">
+		<div style="margin: 100px 0 25px 0;">
+			<h1>amida</h1>
+			<p>audio mixing interface for data acquisition</p>
+		</div>
+		<div>
+			<button class="save-button" type="btn" onclick="newUser();">
+				<p>New user</p>
+			</button>
+			<button class="save-button" type="btn" onclick="login();">
+				<p>Login</p>
+			</button>
+		</div>
+	</div>
+	<script>
+		function newUser() {
+			location.href = '/new-user';
+		}
+		function login() {
+			location.href = '/login'
+		}
+	</script>
+</body>
+
+</html>

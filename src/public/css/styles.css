@@ -13,6 +13,22 @@
   overflow:auto;
 }
 
+.home {
+  text-align: center;
+  width: 570px;
+  height: 500px;
+
+  position:absolute; /*it can be fixed too*/
+  left:0; right:0;
+  top:0; bottom:0;
+  margin:auto;
+
+  /*this to solve "the content will not be cut when the window is smaller than the content": */
+  max-width:100%;
+  max-height:100%;
+  overflow:auto;
+}
+
 .nav {
   text-align: center;
   width: 570px;
@@ -26,10 +42,10 @@
 }
 
 .save-button {
-  width: 80px;
-  height: 30px;
+  width: 100px;
+  height: 35px;
   text-align: center;
-  margin:auto;
+  margin: 0px 0px 5px 5px;
   background-color: white;
   color: black;
   border: 2px solid black; /* Green */
@@ -66,7 +82,22 @@ p {
   padding: 0;
 }
 
+a, a:link, a:visited, a:focus, a:hover, a:active{
+  text-decoration:none; 
+}
 
+.form {
+	font-weight: lighter;
+	outline: none;
+	-webkit-user-select: none;  /* Chrome 49+ */
+  -moz-user-select: none;     /* Firefox 43+ */
+  -ms-user-select: none;      /* No support yet */
+  user-select: none;          /* Likely future */
+}
+
+input {
+ 
+}
 
 ul {
   list-style-type: none;

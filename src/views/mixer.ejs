@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>amida | song: <%= song.id %> </title>
+	<title>amida | song <%= data.song.id %> </title>
 	<link rel="stylesheet" href="/css/styles.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.7.4/Tone.js"></script>
 	<script src="https://tonejs.github.io/examples/js/tonejs-ui.js"></script>
@@ -11,12 +11,12 @@
 <body>
     <section>
 		<div class="mixer">
-			<h2 style="text-align: center;"> <%= song.id %> - <%= song.artist %> - <%= song.title %></h2>
+			<h2 style="text-align: center;"> <%= data.song.id %> - <%= data.song.artist %> - <%= data.song.title %></h2>
 			<div class="nav"> 
 				<p>
-					<a href="/mixer/<%= song.id + -2 %>">Prev</a> | 
+					<a href="/mixer/<%= data.song.id + -2 %>">Prev</a> | 
 					<a href="/">Songs</a> |
-					<a href="/mixer/<%= song.id %>">Next</a>
+					<a href="/mixer/<%= data.song.id %>">Next</a>
 				</p>
 			</div>
 			<tone-content>
@@ -28,14 +28,15 @@
 				</div>
 				<tone-play-toggle></tone-play-toggle>
 			</tone-content>
-			<button class="save-button">
-				<a id="save" href="" onclick="save();return false;">Save</a>
-			</div>
+			<button class="save-button" type="btn" onclick="save('<%= data.userId %>', '<%= data.song.id %>');"">
+				<p>Save</p>
+			</button>
 		</div>
 
 	</section>
 
 	<script type="text/javascript">
+
 		function makeChannel(name, url){
 			var channel = new Tone.Channel().toMaster();
 			var player = new Tone.Player({
@@ -45,6 +46,21 @@
 			player.chain(channel);
 			//bind the UI
 			document.querySelector(`#${name}`).bind(channel);
+		}	
+
+		function save(userId, songId) {
+			var channels = document.getElementsByTagName("tone-channel");
+			var gains = [];
+
+			for (var idx = 0; idx<channels.length; idx++) {
+				//console.log(channels[idx].shadowRoot.childNodes[4].childNodes[3]
+				//.childNodes[3].shadowRoot.childNodes[4].childNodes[3].childNodes[3].nodeValue);
+
+				gains.push(parseInt(channels[idx].shadowRoot.querySelector("tone-volume-slider")
+									.shadowRoot.querySelector("#number").childNodes[3].nodeValue));			
+			}
+			console.log(gains);
+			location.href = `/save/${userId}/${songId}/${gains[0]}/${gains[1]}/${gains[2]}/${gains[3]}/`
 		}
 
 		function removePans() {
@@ -54,11 +70,11 @@
 				channels[idx].shadowRoot.childNodes[4].childNodes[5].remove();
 			}
 		}
-
-		makeChannel("bass",   "/<%= song.tracks.mono['bass'] %>"   );
-		makeChannel("drums",  "/<%= song.tracks.mono['drums'] %>"  );
-		makeChannel("other",  "/<%= song.tracks.mono['other'] %>"  );
-		makeChannel("vocals", "/<%= song.tracks.mono['vocals'] %>" );
+	
+		makeChannel("bass",   "/<%= data.song.tracks.stereo['bass'] %>"   );
+		makeChannel("drums",  "/<%= data.song.tracks.stereo['drums'] %>"  );
+		makeChannel("other",  "/<%= data.song.tracks.stereo['other'] %>"  );
+		makeChannel("vocals", "/<%= data.song.tracks.stereo['vocals'] %>" );
 		document.querySelector("tone-play-toggle").bind(Tone.Transport);
 		removePans();
 	</script>
