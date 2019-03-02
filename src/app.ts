@@ -2,14 +2,16 @@ import express from 'express';
 import path from 'path';
 import firebase from 'firebase-admin';
 
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+
 // Fetch the service account key JSON file contents
 import config from './keys.json';
-import bodyParser from 'body-parser';
 
 // state variables
 var songs: any;
 var song: any;
-var userId: any;
 
 // setup for firebase real-time database
 firebase.initializeApp({
@@ -32,32 +34,48 @@ const app: express.Application = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app
+  .use(express.static(__dirname + '/public'))
+  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: true }))
+  .use(cookieParser())
+  .use(session({ secret: 'tk421', resave: false, saveUninitialized: true, }));
 
 // routes
 app.post('/login', function (req, res) { 	
-  userId = req.body.id;
+  if (req.session) {
+    req.session.userId = req.body.id;
+  }
   res.redirect('/song-list');
 });
 
-app.post('/new-user', function (req, res) { 	
-  userId = req.body.id;
-  var userData = {
-    "id" : userId,
-    "experience" : req.body.experience,
-    "playback" : req.body.playback
+app.get('/logout', function (req, res) { 	
+  if (req.session) {
+    req.session.destroy(function(err) {
+      if (err) return console.log(err);
+        return res.redirect('/');
+    });
   }
-  db.ref("users/" + req.body.id)
-    .set(userData, function() {
-      res.redirect('/song-list');
-  });
+});
+
+app.post('/new-user', function (req, res) { 	
+  if (req.session) {
+    req.session.userId = req.body.id;
+    var userData = {
+      "id" : req.body.id,
+      "experience" : req.body.experience,
+      "playback" : req.body.playback
+    }
+    db.ref("users/" + req.body.id)
+      .set(userData, function() {
+        res.redirect('/song-list');
+    });
+  }
 });
 
 app.get('/song-list', function (req, res) {
   var data = {};
-  data.userId = userId;
+  data.userId = req.session.userId;
   data.songs = songs;
   res.render('song-list.ejs', { data });  
 });
@@ -68,7 +86,7 @@ app.get('/mixer/:id', function (req, res) {
     .once("value", function(snapshot) {
       var data = {
         "song" : snapshot.val(),
-        "userId" : userId
+        "userId" : req.session.userId
       }
       console.log(data);
       res.render('mixer.ejs', { data });  
