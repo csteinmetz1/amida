@@ -9,18 +9,24 @@
 </head>
 
 <body>
-    <section class="song-list">
+	<div style="margin: 15px 0 10px 0;">
+		<p style="display: inline;"> Logged in as <strong><%= data.userId %></strong></p>
+		<button class="save-button" type="btn" onclick="location.href = '/';"">
+			<p>Logout</p>
+		</button>
+	</div>
+    <div class="song-list">
 	<h2>Songs</h2>
 		<div>
 			<ul class="list-group">
-				<% for(var i=0; i<songs.length; i++) {%>
+				<% for(var i=0; i<data.songs.length; i++) {%>
 					<li class="list-group-item">
-						<a href="/mixer/<%= songs[i].id %>"> <%= songs[i].id %> - <%= songs[i].artist %> - <%= songs[i].title %> </a>
+						<a href="/mixer/<%= data.songs[i].id %>"> <%= data.songs[i].id %> - <%= data.songs[i].artist %> - <%= data.songs[i].title %> </a>
 					</li>
 				<% } %>
 			</ul>
 		</div>
-    </section>
+    </div>
 </body>
 
 </html>

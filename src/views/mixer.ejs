@@ -9,6 +9,12 @@
 </head>
 
 <body>
+		<div style="margin: 15px 0 10px 0;">
+				<p style="display: inline;"> Logged in as <strong><%= data.userId %></strong></p>
+				<button class="save-button" type="btn" onclick="location.href = '/';"">
+					<p>Logout</p>
+				</button>
+			</div>
     <section>
 		<div class="mixer">
 			<h2 style="text-align: center;"> <%= data.song.id %> - <%= data.song.artist %> - <%= data.song.title %></h2>

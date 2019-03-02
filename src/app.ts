@@ -39,6 +39,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // routes
 app.post('/login', function (req, res) { 	
   userId = req.body.id;
+  res.redirect('/song-list');
+});
+
+app.post('/new-user', function (req, res) { 	
+  userId = req.body.id;
   var userData = {
     "id" : userId,
     "experience" : req.body.experience,
@@ -50,13 +55,11 @@ app.post('/login', function (req, res) {
   });
 });
 
-app.post('/new-user', function (req, res) { 	
-  userId = req.body.id;
-  res.redirect('/song-list');
-});
-
 app.get('/song-list', function (req, res) {
-  res.render('song-list.ejs', { songs });  
+  var data = {};
+  data.userId = userId;
+  data.songs = songs;
+  res.render('song-list.ejs', { data });  
 });
 
 app.get('/mixer/:id', function (req, res) {
