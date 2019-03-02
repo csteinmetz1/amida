@@ -75,7 +75,7 @@ app.get('/mixer/:id', function (req, res) {
   });
 });
 
-app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals', function (req, res) {
+app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req, res) {
 
   console.log(req.params);
 
@@ -85,6 +85,7 @@ app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals', function (req, res)
     "drums" : req.params.drums,
     "other" : req.params.other,
     "vocals" : req.params.vocals,
+    "time" : req.params.time
   }
 
   db.ref("users/" + req.params.userId + "/mixes/")

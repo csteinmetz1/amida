@@ -48,6 +48,8 @@
 
 	<script type="text/javascript">
 
+	var start = window.performance.now(); // start timing the mix in seconds
+
 		function makeChannel(name, url){
 			var channel = new Tone.Channel().toMaster();
 			var player = new Tone.Player({
@@ -60,6 +62,7 @@
 		}	
 
 		function save(userId, songId) {
+			var mixTime = (window.performance.now() - start)/1000; // stop timing the mix in seconds
 			var result = document.getElementById("result");
 			var channels = document.getElementsByTagName("tone-channel");
 			var gains = [];
@@ -72,9 +75,9 @@
 									.shadowRoot.querySelector("#number").childNodes[3].nodeValue));			
 			}
 			console.log(gains);
-			console.log(result);
 			result.innerHTML = "Saved mix!";
-			location.href = `/save/${userId}/${songId}/${gains[0]}/${gains[1]}/${gains[2]}/${gains[3]}/`
+			location.href = `/save/${userId}/${songId}/${gains[0]}/${gains[1]}/${gains[2]}/${gains[3]}/${mixTime}`
+			start = window.performance.now(); // start timing the mix again in seconds
 		}
 
 		function removePans() {
