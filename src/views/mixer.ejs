@@ -14,9 +14,13 @@
 			<h2 style="text-align: center;"> <%= data.song.id %> - <%= data.song.artist %> - <%= data.song.title %></h2>
 			<div class="nav"> 
 				<p>
-					<a href="/mixer/<%= data.song.id + -2 %>">Prev</a> | 
-					<a href="/">Songs</a> |
-					<a href="/mixer/<%= data.song.id %>">Next</a>
+					<% if (data.song.id - 1 > 0) { %>
+						<a href="/mixer/<%= data.song.id - 1 %>">Prev</a> | 
+					<% } %>
+						<a href="/song-list">Songs</a> 
+					<% if (data.song.id + 1 <= 100) { %>
+						| <a href="/mixer/<%= data.song.id + 1 %>">Next</a>
+					<% } %>
 				</p>
 			</div>
 			<tone-content>
@@ -31,6 +35,7 @@
 			<button class="save-button" type="btn" onclick="save('<%= data.userId %>', '<%= data.song.id %>');"">
 				<p>Save</p>
 			</button>
+			<p id="result"></p>
 		</div>
 
 	</section>
@@ -49,6 +54,7 @@
 		}	
 
 		function save(userId, songId) {
+			var result = document.getElementById("result");
 			var channels = document.getElementsByTagName("tone-channel");
 			var gains = [];
 
@@ -60,6 +66,8 @@
 									.shadowRoot.querySelector("#number").childNodes[3].nodeValue));			
 			}
 			console.log(gains);
+			console.log(result);
+			result.innerHTML = "Saved mix!";
 			location.href = `/save/${userId}/${songId}/${gains[0]}/${gains[1]}/${gains[2]}/${gains[3]}/`
 		}
 

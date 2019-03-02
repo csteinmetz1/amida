@@ -1,21 +1,25 @@
 import express from 'express';
 import path from 'path';
-var admin = require('firebase-admin');
+import firebase from 'firebase-admin';
 
 // Fetch the service account key JSON file contents
 import config from './keys.json';
+import bodyParser from 'body-parser';
 
-admin.initializeApp({
-  credential: admin.credential.cert(config),
+// state variables
+var songs: any;
+var song: any;
+var userId: any;
+
+// setup for firebase real-time database
+firebase.initializeApp({
+  credential: firebase.credential.cert(config),
   databaseURL: 'https://amida-4242.firebaseio.com'
 });
 
-// As an admin, the app has access to read and write all data, regardless of Security Rules
-var db = admin.database();
+var db = firebase.database();
 
-let songs: any;
-let data: any;
-
+// get song list
 var ref = db.ref("songs");
 ref.once("value", function(snapshot) {
   songs = snapshot.val();
@@ -29,21 +33,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', function (req, res) {
-  res.render('index.ejs', { });  
-});
-
-app.get('/login', function (req, res) {
-  res.render('login.ejs', { });  
-});
-
-app.post('/login', function (req, res) {
-  res.render('song-list.ejs', { songs });
-})
-
-app.get('/new-user', function (req, res) {
-  res.render('index.ejs', { });  
+// routes
+app.post('/login', function (req, res) { 	
+  userId = req.body.id;
+  res.redirect('/song-list');
 });
 
 app.get('/song-list', function (req, res) {
@@ -52,11 +48,11 @@ app.get('/song-list', function (req, res) {
 
 app.get('/mixer/:id', function (req, res) {
 
-  db.ref("songs/" + req.params.id)
+  db.ref("songs/" + `${parseInt(req.params.id) - 1}`)
     .once("value", function(snapshot) {
-      data = {
+      var data = {
         "song" : snapshot.val(),
-        "userId" : "abc123"
+        "userId" : userId
       }
       console.log(data);
       res.render('mixer.ejs', { data });  
@@ -77,8 +73,7 @@ app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals', function (req, res)
 
   db.ref("users/" + req.params.userId + "/mixes/")
     .push(mix, function() {
-      console.log(data);
-      res.render('mixer.ejs', { data });  
+      res.status(204).send(); 
   });
 
 });
