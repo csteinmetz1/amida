@@ -39,6 +39,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // routes
 app.post('/login', function (req, res) { 	
   userId = req.body.id;
+  var userData = {
+    "id" : userId,
+    "experience" : req.body.experience,
+    "playback" : req.body.playback
+  }
+  db.ref("users/" + req.body.id)
+    .set(userData, function() {
+      res.redirect('/song-list');
+  });
+});
+
+app.post('/new-user', function (req, res) { 	
+  userId = req.body.id;
   res.redirect('/song-list');
 });
 
