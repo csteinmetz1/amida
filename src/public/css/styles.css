@@ -70,7 +70,9 @@
   /* transition-duration: 0.4s; */
 }
 
-.save-button:hover {opacity: 1}
+.save-button:hover {
+  background: #f6f6f6;
+}
 
 body {
   font: 400 15px/1.5 Helvetica, Verdana, sans-serif;
