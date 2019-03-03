@@ -77,7 +77,7 @@ app.post('/new-user', function (req, res) {
     var userData = {
       "id" : req.body.id,
       "experience" : req.body.experience,
-      "playback" : req.body.playback
+      "playback" : req.body.playback,
     }
     db.ref("songs").once("value", function(snapshot) {
       req.session.songs = snapshot.val();
@@ -97,7 +97,15 @@ app.get('/song-list', function (req, res) {
 
   db.ref("users/" + req.session.userId + "/mixes/")
     .once("value", function(snapshot) {
-      var mixes = new Set(Object.values(snapshot.val()).map(Number));
+      if (snapshot.exists())
+      {
+        var mixes = new Set(Object.values(snapshot.val()).map(Number));
+      }
+      else
+      {
+        var mixes = new Set();
+      }
+      data.numMixes = mixes.size;
       for (var i=0; i < data.songs.length; i++)
       {
         if (mixes.has(i+1)) {
@@ -143,7 +151,8 @@ app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req
 
   db.ref("mixes/")
     .push(mix, function() {
-      res.status(204).send(); 
+      //res.status(204).send(); 
+      res.redirect("/song-list")
   });
 
   db.ref("users/" + req.params.userId + "/mixes/")
