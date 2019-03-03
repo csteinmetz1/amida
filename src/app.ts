@@ -9,10 +9,6 @@ import session from 'express-session';
 // Fetch the service account key JSON file contents
 import config from './keys.json';
 
-// state variables
-var songs: any;
-var song: any;
-
 // setup for firebase real-time database
 firebase.initializeApp({
   credential: firebase.credential.cert(config),
@@ -20,12 +16,6 @@ firebase.initializeApp({
 });
 
 var db = firebase.database();
-
-// get song list
-var ref = db.ref("songs");
-ref.once("value", function(snapshot) {
-  songs = snapshot.val();
-});
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -45,8 +35,12 @@ app
 app.post('/login', function (req, res) { 	
   if (req.session) {
     req.session.userId = req.body.id;
+    // get songs from database and save
+    db.ref("songs").once("value", function(snapshot) {
+      req.session.songs = snapshot.val();
+      res.redirect('/song-list');
+    });
   }
-  res.redirect('/song-list');
 });
 
 app.get('/logout', function (req, res) { 	
@@ -76,7 +70,7 @@ app.post('/new-user', function (req, res) {
 app.get('/song-list', function (req, res) {
   var data = {};
   data.userId = req.session.userId;
-  data.songs = songs;
+  data.songs = req.session.songs;
   res.render('song-list.ejs', { data });  
 });
 
