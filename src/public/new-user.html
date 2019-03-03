@@ -13,35 +13,21 @@
 			<p>audio mixing interface for data acquisition</p>
 		</div>
 		<div class="form">
-			<form action="/login" method="post">
+			<form action="/new-user" method="post">
 			<h3>Create user id</h3>
-			<input type="text" name="id" value="">
+			<input type="text" name="id" value="" required placeholder="user id">
 			<br>
 			<h3>Mixing experience</h3>
-			<input type="radio" id="exp1"
-			name="experience" value="1 year or less">
-		   	<label for="expChoice1">Less than 1 year</label>
-			<br>	   
-		   	<input type="radio" id="exp2"
-			name="experience" value="1 to 3 years">
-		   	<label for="expChoice2">1 to 3 years</label>
-			<br>
-		   	<input type="radio" id="exp3"
-			name="experience" value="3 to 7 years">
-		   	<label for="expChoice3">3 to 7 years</label>
-			<br>
-			<input type="radio" id="exp4"
-			name="experience" value="More than 7 years">
-		   	<label for="expChoice4">More than 7 years</label>
+			<input type="number" id="number" name="experience" min="0" max="100" placeholder="0" required> years
 			<br>
 			<h3>Playback setup</h3>
-			<input type="radio" id="playback1"
-			name="playback" value="headphones">
-		   	<label for="playbackChoice1">Headphones</label>
-			<br>	   
-		   	<input type="radio" id="playback1"
-			name="playback" value="loudspeakers">
-		   	<label for="playbackChoice2">Loudspeakers</label>
+			<select name="playback" required>
+				<option value="headphones">Headphones</option>
+				<option value="studio">Studio Monitors</option>
+				<option value="earbuds">Earbuds</option>
+				<option value="laptop">Laptop speakers</option>
+			</select>
+			<br>
 			<br>
 			<input class="save-button" class type="submit" value="Submit">
 			</form> 

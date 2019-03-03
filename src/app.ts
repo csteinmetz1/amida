@@ -98,7 +98,8 @@ app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req
   console.log(req.params);
 
   var mix = {
-    "id" : req.params.songId,
+    "userId" : req.params.userId,
+    "songId" : req.params.songId,
     "bass" : req.params.bass,
     "drums" : req.params.drums,
     "other" : req.params.other,
@@ -106,7 +107,7 @@ app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req
     "time" : req.params.time
   }
 
-  db.ref("users/" + req.params.userId + "/mixes/")
+  db.ref("mixes/")
     .push(mix, function() {
       res.status(204).send(); 
   });

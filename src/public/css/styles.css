@@ -110,7 +110,6 @@ a, a:link, a:visited, a:focus, a:hover, a:active{
 
 .form {
   display: inline-block;
-  text-align: left;
 	font-weight: lighter;
 	outline: none;
 	-webkit-user-select: none;  /* Chrome 49+ */
@@ -131,6 +130,7 @@ input[type="radio"] {
 }
 
 input[type="text"] {
+  width: 100%;
   margin: 15px 0 15px 0;
   box-sizing: border-box;
   border: none;
@@ -142,6 +142,19 @@ input[type="text"] {
   border-bottom: 2px solid black; /* Green */ 
 }
 
+input[type="number"] {
+  width: 100%;
+
+  margin: 15px 0 15px 0;
+  box-sizing: border-box;
+  border: none;
+  color: black;
+  width: 50px;
+  height: 30px;
+  font-size: 15px;
+  text-align: center;
+  border-bottom: 2px solid black; /* Green */ 
+}
 
 .footer {
   position: fixed;
