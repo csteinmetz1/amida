@@ -62,8 +62,8 @@
   text-align: center;
   margin: 10px 5px 10px 5px;
   background-color: white;
-  color: black;
-  border: 2px solid black; /* Green */
+  color: 272727;
+  border: 2px solid #272727; /* Green */
   text-decoration: none;
   cursor: pointer;
   /* -webkit-transition-duration: 0.4s;  Safari */
@@ -71,7 +71,8 @@
 }
 
 .save-button:hover {
-  background: #f6f6f6;
+  background: #272727;
+  color: white;
 }
 
 body {
@@ -79,6 +80,7 @@ body {
   text-align: center;
   margin: 0;
   padding: 0;
+  color: #272727;
 }
 
 
@@ -106,8 +108,8 @@ p {
   padding: 0;
 }
 
-a, a:link, a:visited, a:focus, a:hover, a:active{
-  text-decoration:none; 
+a, a:link, a:visited, a:focus, a:active {
+   color: #272727;
 }
 
 .form {
@@ -136,12 +138,12 @@ input[type="text"] {
   margin: 15px 0 15px 0;
   box-sizing: border-box;
   border: none;
-  color: black;
+  color: #272727;
   width: 125px;
   height: 30px;
   font-size: 15px;
   text-align: center;
-  border-bottom: 2px solid black; /* Green */ 
+  border-bottom: 2px solid #272727; /* Green */ 
 }
 
 input[type="number"] {
@@ -150,12 +152,12 @@ input[type="number"] {
   margin: 15px 0 15px 0;
   box-sizing: border-box;
   border: none;
-  color: black;
+  color: #272727;
   width: 50px;
   height: 30px;
   font-size: 15px;
   text-align: center;
-  border-bottom: 2px solid black; /* Green */ 
+  border-bottom: 2px solid #272727; /* Green */ 
 }
 
 .footer {
@@ -185,7 +187,7 @@ li:last-child {
 
 li a {
   text-decoration: none;
-  color: #000;
+  color: #272727;
 
   -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
   -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
