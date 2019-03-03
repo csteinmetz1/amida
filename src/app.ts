@@ -8,6 +8,7 @@ import session from 'express-session';
 
 // Fetch the service account key JSON file contents
 import config from './keys.json';
+import { SSL_OP_SINGLE_DH_USE } from 'constants';
 
 // setup for firebase real-time database
 firebase.initializeApp({
@@ -92,7 +93,23 @@ app.get('/song-list', function (req, res) {
   var data = {};
   data.userId = req.session.userId;
   data.songs = req.session.songs;
-  res.render('song-list.ejs', { data });  
+  data.mixes = [];
+
+  db.ref("users/" + req.session.userId + "/mixes/")
+    .once("value", function(snapshot) {
+      var mixes = new Set(Object.values(snapshot.val()).map(Number));
+      for (var i=0; i < data.songs.length; i++)
+      {
+        if (mixes.has(i+1)) {
+          data.mixes[i] = true;
+        }
+        else
+        {
+          data.mixes[i] = false;
+        }
+      }
+      res.render('song-list.ejs', { data });  
+    });
 });
 
 app.get('/mixer/:id', function (req, res) {

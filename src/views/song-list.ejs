@@ -21,7 +21,13 @@
 			<ul class="list-group">
 				<% for(var i=0; i<data.songs.length; i++) {%>
 					<li class="list-group-item">
-						<a href="/mixer/<%= data.songs[i].id %>"> <%= data.songs[i].id %> - <%= data.songs[i].artist %> - <%= data.songs[i].title %> </a>
+						<a href="/mixer/<%= data.songs[i].id %>"> 
+							<% if (data.mixes[i]) { %>
+								<strong><%= data.songs[i].id %> - <%= data.songs[i].artist %> - <%= data.songs[i].title %> </strong>
+							<% } else { %>
+								<%= data.songs[i].id %> - <%= data.songs[i].artist %> - <%= data.songs[i].title %> 
+							<% } %>
+						</a>
 					</li>
 				<% } %>
 			</ul>
