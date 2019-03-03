@@ -111,6 +111,7 @@ app.get('/mixer/:id', function (req, res) {
 app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req, res) {
 
   console.log(req.params);
+  var date = new Date().toISOString();
 
   var mix = {
     "userId" : req.params.userId,
@@ -119,12 +120,17 @@ app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req
     "drums" : req.params.drums,
     "other" : req.params.other,
     "vocals" : req.params.vocals,
-    "time" : req.params.time
+    "time" : req.params.time,
+    "datetime" : date
   }
 
   db.ref("mixes/")
     .push(mix, function() {
       res.status(204).send(); 
+  });
+
+  db.ref("users/" + req.params.userId + "/mixes/")
+    .push(req.params.songId, function() {
   });
 
 });
