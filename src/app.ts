@@ -34,13 +34,31 @@ app
 // routes
 app.post('/login', function (req, res) { 	
   if (req.session) {
-    req.session.userId = req.body.id;
-    // get songs from database and save
-    db.ref("songs").once("value", function(snapshot) {
-      req.session.songs = snapshot.val();
-      res.redirect('/song-list');
-    });
+    db.ref("users").once("value", function(snapshot) {
+      var users = snapshot.val();
+      console.log(req.body.id, Object.keys(users));
+      if (Object.keys(users).indexOf(req.body.id) < 0)
+      {
+        console.log(`User ${req.body.id} not found!`);
+        var error = {"text" : `User id (${req.body.id}) not found.`}
+        return res.render("login.ejs", error);
+      }
+      else
+      {
+        req.session.userId = req.body.id;
+        // get songs from database and save
+        db.ref("songs").once("value", function(snapshot) {
+          req.session.songs = snapshot.val();
+          return res.redirect('/song-list');
+        });
+      }
+    })
   }
+});
+
+app.get('/login', function (req, res) { 	
+  var error = {"text" : ""}
+  return res.render("login.ejs", error);
 });
 
 app.get('/logout', function (req, res) { 	
@@ -60,9 +78,12 @@ app.post('/new-user', function (req, res) {
       "experience" : req.body.experience,
       "playback" : req.body.playback
     }
+    db.ref("songs").once("value", function(snapshot) {
+      req.session.songs = snapshot.val();
+      res.redirect('/song-list');
+    });
     db.ref("users/" + req.body.id)
       .set(userData, function() {
-        res.redirect('/song-list');
     });
   }
 });
