@@ -14,8 +14,9 @@ def process(args):
     songs = util.get_songs(args.input)  
 
     print("Processing audio...")
-    for song in tqdm(songs, ncols=80):
-        song_path = os.path.join(args.output, os.path.basename(song))
+    #for song in tqdm(songs, ncols=80):
+    for song in songs:
+        song_path = os.path.join(args.output, os.path.basename(song.strip("/")))
         stereo_path = os.path.join(song_path, "stereo")
         mono_path = os.path.join(song_path, "mono")
         if not os.path.isdir(song_path):
@@ -32,7 +33,6 @@ def process(args):
         indices_data = util.find_sample_indices(mix_output, 30.0, 'highest_energy')
         os.remove(mix_output) # remove mix (we only need it for analysis)
         
-        #print(song)
         for rmse, indices in indices_data.items():
             valid_indices = []
             #print("Checking {} with rmse {}".format(indices, rmse))
@@ -81,7 +81,7 @@ def database(args):
     data = []
     for song_path in tqdm(songs, ncols=80):
         song = {}
-        song_filename = os.path.basename(song_path)
+        song_filename = os.path.basename(song_path.strip("/"))
         song['id'] = int(song_filename.split(' - ')[0])
         song['artist'] = song_filename.split(' - ')[1]
         song['title'] = song_filename.split(' - ')[2]
@@ -103,7 +103,7 @@ def database(args):
 
         data.append(song)
 
-    with open('src/assets/data.json', 'w') as outfile:  
+    with open(os.path.join(args.output, 'data.json'), 'w') as outfile:  
         json.dump(data, outfile)
 
 def main(args):
