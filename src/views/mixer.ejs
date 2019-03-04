@@ -88,10 +88,10 @@
 			}
 		}
 	
-		makeChannel("bass",   "/<%= data.song.tracks.stereo['bass'] %>"   );
-		makeChannel("drums",  "/<%= data.song.tracks.stereo['drums'] %>"  );
-		makeChannel("other",  "/<%= data.song.tracks.stereo['other'] %>"  );
-		makeChannel("vocals", "/<%= data.song.tracks.stereo['vocals'] %>" );
+		makeChannel("bass",   "/<%- data.song.tracks.stereo['bass'] %>"   );
+		makeChannel("drums",  "/<%- data.song.tracks.stereo['drums'] %>"  );
+		makeChannel("other",  "/<%- data.song.tracks.stereo['other'] %>"  );
+		makeChannel("vocals", "/<%- data.song.tracks.stereo['vocals'] %>" );
 		document.querySelector("tone-play-toggle").bind(Tone.Transport);
 		removePans();
 	</script>
