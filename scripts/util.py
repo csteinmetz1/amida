@@ -31,14 +31,14 @@ def generate_song_idx_json(path_to_dataset, path_to_output):
         s['title']  = title
         s['artist'] = artist
         s['start']  = 0
-        s['stop']   = 0
+        s['stop']   = 30
         s['path']   = path
 
         # add to list
         song_idx.append(s)
 
     with open(os.path.join(path_to_output), 'w') as f:  
-        json.dump(song_idx, f)
+        json.dump(song_idx, f, indent=2)
 
 def find_sample_indices(input_path, length, sample_type):
     """ Measure the integrated gated loudness of a signal.

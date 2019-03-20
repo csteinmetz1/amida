@@ -83,8 +83,8 @@ def database(args):
 
         data.append(song)
 
-    with open(os.path.join(args.output, 'data.json'), 'w') as outfile:  
-        json.dump(data, outfile)
+    with open(os.path.join(args.output, 'data.json'), 'w') as f:  
+        json.dump(data, f, indent=2)
 
 def main(args):
 
