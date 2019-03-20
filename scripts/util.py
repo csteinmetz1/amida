@@ -21,9 +21,9 @@ def generate_song_idx_json(path_to_dataset, path_to_output):
         s = {} 
         # extract details
         filename = os.path.split(os.path.normpath(song))[-1]
-        song_id = int(filename.split('-')[0])
-        artist  = filename.split('-')[1]
-        title   = filename.split('-')[2]
+        song_id = int(filename.split(' - ')[0])
+        artist  = filename.split(' - ')[1]
+        title   = filename.split(' - ')[2]
         path    = song
 
         # store into dict obj
