@@ -91,392 +91,392 @@
     "id": 12,
     "title": "Burning Bridges",
     "artist": "Dark Ride",
-    "start": 0,
-    "stop": 30,
+    "start": 15,
+    "stop": 45,
     "path": "DSD100/012 - Dark Ride - Burning Bridges/"
   },
   {
     "id": 13,
     "title": "Ghost Bitch",
     "artist": "Drumtracks",
-    "start": 0,
-    "stop": 30,
+    "start":95,
+    "stop": 125,
     "path": "DSD100/013 - Drumtracks - Ghost Bitch/"
   },
   {
     "id": 14,
     "title": "Back From The Start",
     "artist": "Fergessen",
-    "start": 0,
-    "stop": 30,
+    "start": 64,
+    "stop": 94,
     "path": "DSD100/014 - Fergessen - Back From The Start/"
   },
   {
     "id": 15,
     "title": "The Wind",
     "artist": "Fergessen",
-    "start": 0,
-    "stop": 30,
+    "start": 56,
+    "stop": 86,
     "path": "DSD100/015 - Fergessen - The Wind/"
   },
   {
     "id": 16,
     "title": "Semantics",
     "artist": "Forkupines",
-    "start": 0,
-    "stop": 30,
+    "start": 44,
+    "stop": 74,
     "path": "DSD100/016 - Forkupines - Semantics/"
   },
   {
     "id": 17,
     "title": "We Feel Alright",
     "artist": "Girls Under Glass",
-    "start": 0,
-    "stop": 30,
+    "start": 86,
+    "stop": 116,
     "path": "DSD100/017 - Girls Under Glass - We Feel Alright/"
   },
   {
     "id": 18,
     "title": "Ill Fate",
     "artist": "Hollow Ground",
-    "start": 0,
-    "stop": 30,
+    "start": 65,
+    "stop": 95,
     "path": "DSD100/018 - Hollow Ground - Ill Fate/"
   },
   {
     "id": 19,
     "title": "The English Actor",
     "artist": "James Elder & Mark M Thompson",
-    "start": 0,
-    "stop": 30,
+    "start": 147,
+    "stop": 177,
     "path": "DSD100/019 - James Elder & Mark M Thompson - The English Actor/"
   },
   {
     "id": 20,
     "title": "Dont Let Go",
     "artist": "James May",
-    "start": 0,
-    "stop": 30,
+    "start": 18,
+    "stop": 48,
     "path": "DSD100/020 - James May - Dont Let Go/"
   },
   {
     "id": 21,
     "title": "On The Line",
     "artist": "James May",
-    "start": 0,
-    "stop": 30,
+    "start": 40,
+    "stop": 70,
     "path": "DSD100/021 - James May - On The Line/"
   },
   {
     "id": 22,
     "title": "Promises & Lies",
     "artist": "Johnny Lokke",
-    "start": 0,
-    "stop": 30,
+    "start": 38,
+    "stop": 68,
     "path": "DSD100/022 - Johnny Lokke - Promises & Lies/"
   },
   {
     "id": 23,
     "title": "Sea Of Leaves",
     "artist": "Jokers, Jacks & Kings",
-    "start": 0,
-    "stop": 30,
+    "start": 149,
+    "stop": 179,
     "path": "DSD100/023 - Jokers, Jacks & Kings - Sea Of Leaves/"
   },
   {
     "id": 24,
     "title": "Come Around",
     "artist": "Leaf",
-    "start": 0,
-    "stop": 30,
+    "start": 100,
+    "stop": 130,
     "path": "DSD100/024 - Leaf - Come Around/"
   },
   {
     "id": 25,
     "title": "Wicked",
     "artist": "Leaf",
-    "start": 0,
-    "stop": 30,
+    "start": 108,
+    "stop": 138,
     "path": "DSD100/025 - Leaf - Wicked/"
   },
   {
     "id": 26,
     "title": "Good Time",
     "artist": "Louis Cressy Band",
-    "start": 0,
-    "stop": 30,
+    "start": 41,
+    "stop": 71,
     "path": "DSD100/026 - Louis Cressy Band - Good Time/"
   },
   {
     "id": 27,
     "title": "Knockout",
     "artist": "M.E.R.C. Music",
-    "start": 0,
-    "stop": 30,
+    "start": 146,
+    "stop": 176,
     "path": "DSD100/027 - M.E.R.C. Music - Knockout/"
   },
   {
     "id": 28,
     "title": "Shore",
     "artist": "Motor Tapes",
-    "start": 0,
-    "stop": 30,
+    "start": 55,
+    "stop": 85,
     "path": "DSD100/028 - Motor Tapes - Shore/"
   },
   {
     "id": 29,
     "title": "Pray For The Rain",
     "artist": "Nerve 9",
-    "start": 0,
-    "stop": 30,
+    "start": 112,
+    "stop": 142,
     "path": "DSD100/029 - Nerve 9 - Pray For The Rain/"
   },
   {
     "id": 30,
     "title": "A Reason To Leave",
     "artist": "Patrick Talbot",
-    "start": 0,
-    "stop": 30,
+    "start": 170,
+    "stop": 200,
     "path": "DSD100/030 - Patrick Talbot - A Reason To Leave/"
   },
   {
     "id": 31,
     "title": "Everybody's Falling Apart",
     "artist": "Phre The Eon",
-    "start": 0,
-    "stop": 30,
+    "start": 100,
+    "stop": 130,
     "path": "DSD100/031 - Phre The Eon - Everybody's Falling Apart/"
   },
   {
     "id": 32,
     "title": "Tiring",
     "artist": "Raft Monk",
-    "start": 0,
-    "stop": 30,
+    "start": 145,
+    "stop": 175,
     "path": "DSD100/032 - Raft Monk - Tiring/"
   },
   {
     "id": 33,
     "title": "Kaathaadi",
     "artist": "Sambasevam Shanmugam",
-    "start": 0,
-    "stop": 30,
+    "start": 35,
+    "stop": 65,
     "path": "DSD100/033 - Sambasevam Shanmugam - Kaathaadi/"
   },
   {
     "id": 34,
     "title": "Over The Top",
     "artist": "Secretariat",
-    "start": 0,
-    "stop": 30,
+    "start": 83,
+    "stop": 113,
     "path": "DSD100/034 - Secretariat - Over The Top/"
   },
   {
     "id": 35,
     "title": "What Have You Done To Me",
     "artist": "Signe Jakobsen",
-    "start": 0,
-    "stop": 30,
+    "start": 45,
+    "stop": 75,
     "path": "DSD100/035 - Signe Jakobsen - What Have You Done To Me/"
   },
   {
     "id": 36,
     "title": "Resurrection",
     "artist": "Skelpolu",
-    "start": 0,
-    "stop": 30,
+    "start": 290,
+    "stop": 320,
     "path": "DSD100/036 - Skelpolu - Resurrection/"
   },
   {
     "id": 37,
     "title": "Broken Man",
     "artist": "Speak Softly",
-    "start": 0,
-    "stop": 30,
+    "start": 38,
+    "stop": 68,
     "path": "DSD100/037 - Speak Softly - Broken Man/"
   },
   {
     "id": 38,
     "title": "Mike's Sulking",
     "artist": "Spike Mullings",
-    "start": 0,
-    "stop": 30,
+    "start": 84,
+    "stop": 114,
     "path": "DSD100/038 - Spike Mullings - Mike's Sulking/"
   },
   {
     "id": 39,
     "title": "Lost My Way",
     "artist": "Swinging Steaks",
-    "start": 0,
-    "stop": 30,
+    "start": 115,
+    "stop": 145,
     "path": "DSD100/039 - Swinging Steaks - Lost My Way/"
   },
   {
     "id": 40,
     "title": "Back Home To Blue",
     "artist": "The Long Wait",
-    "start": 0,
-    "stop": 30,
+    "start": 68,
+    "stop": 98,
     "path": "DSD100/040 - The Long Wait - Back Home To Blue/"
   },
   {
     "id": 41,
     "title": "Mallory",
     "artist": "The Mountaineering Club",
-    "start": 0,
-    "stop": 30,
+    "start": 83,
+    "stop": 113,
     "path": "DSD100/041 - The Mountaineering Club - Mallory/"
   },
   {
     "id": 42,
     "title": "Rothko",
     "artist": "The Wrong'Uns",
-    "start": 0,
-    "stop": 30,
+    "start": 157,
+    "stop": 187,
     "path": "DSD100/042 - The Wrong'Uns - Rothko/"
   },
   {
     "id": 43,
     "title": "Pony",
     "artist": "Timboz",
-    "start": 0,
-    "stop": 30,
+    "start": 138,
+    "stop": 168,
     "path": "DSD100/043 - Timboz - Pony/"
   },
   {
     "id": 44,
     "title": "Directions",
     "artist": "Tom McKenzie",
-    "start": 0,
-    "stop": 30,
+    "start": 137,
+    "stop": 167,
     "path": "DSD100/044 - Tom McKenzie - Directions/"
   },
   {
     "id": 45,
     "title": "Sirens",
     "artist": "Traffic Experiment",
-    "start": 0,
-    "stop": 30,
+    "start": 82,
+    "stop": 112,
     "path": "DSD100/045 - Traffic Experiment - Sirens/"
   },
   {
     "id": 46,
     "title": "Dorothy",
     "artist": "Triviul",
-    "start": 0,
-    "stop": 30,
+    "start": 38,
+    "stop": 68,
     "path": "DSD100/046 - Triviul - Dorothy/"
   },
   {
     "id": 47,
     "title": "Comfort Lives In Belief",
     "artist": "Voelund",
-    "start": 0,
-    "stop": 30,
+    "start": 48,
+    "stop": 78,
     "path": "DSD100/047 - Voelund - Comfort Lives In Belief/"
   },
   {
     "id": 48,
     "title": "Not You",
     "artist": "We Fell From The Sky",
-    "start": 0,
-    "stop": 30,
+    "start": 27,
+    "stop": 57,
     "path": "DSD100/048 - We Fell From The Sky - Not You/"
   },
   {
     "id": 49,
     "title": "Facade",
     "artist": "Young Griffo",
-    "start": 0,
-    "stop": 30,
+    "start": 53,
+    "stop": 83,
     "path": "DSD100/049 - Young Griffo - Facade/"
   },
   {
     "id": 50,
     "title": "Signs",
     "artist": "Zeno",
-    "start": 0,
-    "stop": 30,
+    "start": 54,
+    "stop": 84,
     "path": "DSD100/050 - Zeno - Signs/"
   },
   {
     "id": 51,
     "title": "Heart Peripheral",
     "artist": "AM Contra",
-    "start": 0,
-    "stop": 30,
+    "start": 166,
+    "stop": 196,
     "path": "DSD100/051 - AM Contra - Heart Peripheral/"
   },
   {
     "id": 52,
     "title": "Easy Tiger",
     "artist": "ANiMAL",
-    "start": 0,
-    "stop": 30,
+    "start": 116,
+    "stop": 146,
     "path": "DSD100/052 - ANiMAL - Easy Tiger/"
   },
   {
     "id": 53,
     "title": "Devil's Words",
     "artist": "Actions",
-    "start": 0,
-    "stop": 30,
+    "start": 47,
+    "stop": 77,
     "path": "DSD100/053 - Actions - Devil's Words/"
   },
   {
     "id": 54,
     "title": "South Of The Water",
     "artist": "Actions",
-    "start": 0,
-    "stop": 30,
+    "start": 39,
+    "stop": 69,
     "path": "DSD100/054 - Actions - South Of The Water/"
   },
   {
     "id": 55,
     "title": "I'm Alright",
     "artist": "Angels In Amplifiers",
-    "start": 0,
-    "stop": 30,
+    "start": 65,
+    "stop": 95,
     "path": "DSD100/055 - Angels In Amplifiers - I'm Alright/"
   },
   {
     "id": 56,
     "title": "Run Run Run",
     "artist": "Arise",
-    "start": 0,
-    "stop": 30,
+    "start": 12,
+    "stop": 42,
     "path": "DSD100/056 - Arise - Run Run Run/"
   },
   {
     "id": 57,
     "title": "Bulldozer",
     "artist": "BKS",
-    "start": 0,
-    "stop": 30,
+    "start": 98,
+    "stop": 128,
     "path": "DSD100/057 - BKS - Bulldozer/"
   },
   {
     "id": 58,
     "title": "We'll Talk About It All Tonight",
     "artist": "Ben Carrigan",
-    "start": 0,
-    "stop": 30,
+    "start": 148,
+    "stop": 178,
     "path": "DSD100/058 - Ben Carrigan - We'll Talk About It All Tonight/"
   },
   {
     "id": 59,
     "title": "If You Want Success",
     "artist": "Black Bloc",
-    "start": 0,
-    "stop": 30,
+    "start": 45,
+    "stop": 75,
     "path": "DSD100/059 - Black Bloc - If You Want Success/"
   },
   {
     "id": 60,
     "title": "Revo X",
     "artist": "Buitraker",
-    "start": 0,
-    "stop": 30,
+    "start": 100,
+    "stop": 130,
     "path": "DSD100/060 - Buitraker - Revo X/"
   },
   {
