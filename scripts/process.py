@@ -10,13 +10,16 @@ import util
 
 def process(args):
 
+    # sample rate of input audio
+    fs = 44100
+
     # get prospective sample from the audio file
-    songs = json.load(open("song_idx.json"))['songs']
+    songs = json.load(open("songs.json"))
 
     print("Processing audio...")
-    #for song in tqdm(songs, ncols=80):
     for song in songs:
-        song_path = os.path.join(args.output, song['path'])
+    #for song in tqdm(songs, ncols=80):
+        song_path = os.path.join(args.output, os.path.split(os.path.normpath(song['path']))[-1])
         stereo_path = os.path.join(song_path, "stereo")
         mono_path = os.path.join(song_path, "mono")
         if not os.path.isdir(song_path):
@@ -24,16 +27,11 @@ def process(args):
             os.makedirs(stereo_path)
             os.makedirs(mono_path)
 
-        # create stereo mixdown
-        stem_paths = util.get_stems(os.path.join(args.input, song['path']))
-        print(stem_paths)
-        mix_output = os.path.join(song_path, "mix.wav")
-        sox.create_mixdown(stem_paths, mix_output)
-
-        for stem_path in stem_paths:
+        # iterate over stems for each song
+        for stem_path in util.get_stems(os.path.join(song['path'])):
             # operate on the stereo stems
             stereo_output_path = os.path.join(stereo_path, os.path.basename(stem_path))
-            indices = (song['start'], song['stop'])
+            indices = (song['start'] * fs, song['stop'] * fs)
             sox.trim(stem_path, stereo_output_path, indices)
             sox.loudness_normalize(stereo_output_path, 
                                    stereo_output_path.replace(".wav", "_out.wav"), 
@@ -59,15 +57,14 @@ def process(args):
 def database(args):
 
     # get directories containing stems
-    songs = util.get_songs(args.output)  
+    songs = json.load(open("songs.json"))
 
     data = []
-    for song_path in tqdm(songs, ncols=80):
-        song = {}
-        song_filename = os.path.basename(song_path.strip("/"))
-        song['id'] = int(song_filename.split(' - ')[0])
-        song['artist'] = song_filename.split(' - ')[1]
-        song['title'] = song_filename.split(' - ')[2]
+    for song in tqdm(songs, ncols=80):
+        song_path = os.path.join(args.output, 
+                    os.path.split(os.path.normpath(song['path']))[-1])
+
+        # add paths
         song['tracks'] = {
             'mono'   : {},
             'stereo' : {}
