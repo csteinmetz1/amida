@@ -10,13 +10,13 @@ import util
 
 def process(args):
 
-    # get directories containing stems
-    songs = util.get_songs(args.input)  
+    # get prospective sample from the audio file
+    songs = json.load(open("song_idx.json"))['songs']
 
     print("Processing audio...")
     #for song in tqdm(songs, ncols=80):
     for song in songs:
-        song_path = os.path.join(args.output, os.path.basename(song.strip("/")))
+        song_path = os.path.join(args.output, song['path'])
         stereo_path = os.path.join(song_path, "stereo")
         mono_path = os.path.join(song_path, "mono")
         if not os.path.isdir(song_path):
@@ -25,32 +25,15 @@ def process(args):
             os.makedirs(mono_path)
 
         # create stereo mixdown
-        stem_paths = util.get_stems(song)
+        stem_paths = util.get_stems(os.path.join(args.input, song['path']))
+        print(stem_paths)
         mix_output = os.path.join(song_path, "mix.wav")
         sox.create_mixdown(stem_paths, mix_output)
-
-        # get prospective sample from the audio file
-        indices_data = util.find_sample_indices(mix_output, 30.0, 'highest_energy')
-        os.remove(mix_output) # remove mix (we only need it for analysis)
-        
-        for rmse, indices in indices_data.items():
-            valid_indices = []
-            #print("Checking {} with rmse {}".format(indices, rmse))
-            # check to ensure all sources are active other this window
-            for stem_path in stem_paths:
-                active = util.is_source_active(stem_path, indices)
-                #print(os.path.basename(stem_path), active)
-                valid_indices.append(active)
-            if all(valid_indices):
-                break
-
-        # check for case where no valid indices were found
-        if not all(valid_indices):
-            break # skip onto the next song
 
         for stem_path in stem_paths:
             # operate on the stereo stems
             stereo_output_path = os.path.join(stereo_path, os.path.basename(stem_path))
+            indices = (song['start'], song['stop'])
             sox.trim(stem_path, stereo_output_path, indices)
             sox.loudness_normalize(stereo_output_path, 
                                    stereo_output_path.replace(".wav", "_out.wav"), 
@@ -110,6 +93,7 @@ def main(args):
 
     # create output directory
     if not os.path.isdir(args.output):
+        print(args.output)
         os.makedirs(args.output)
 
     process(args)
