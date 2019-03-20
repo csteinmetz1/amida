@@ -88,25 +88,25 @@ def database(args):
 
 def main(args):
 
-    if args.song_idx:
+    if args.songs:
+        # note: this will overwrite exisitng file
         util.generate_song_idx_json(args.input, "songs.json")
-        return None
+    else:
+        # create output directory
+        if not os.path.isdir(args.output):
+            print(args.output)
+            os.makedirs(args.output)
 
-    # create output directory
-    if not os.path.isdir(args.output):
-        print(args.output)
-        os.makedirs(args.output)
+        process(args)
 
-    process(args)
-
-    if args.json:
-        database(args)
+        if args.json:
+            database(args)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog="amida")
     parser.add_argument("input", help="path to input audio stems directory", type=str)
     parser.add_argument("output", help="path to 30 second samples stems directory", type=str)
     parser.add_argument("-j", "--json", help="generate json dataqase file", action="store_true")
-    parser.add_argument("-s", "--song_idx", help="generate boilerplate indices json file", action="store_true")
+    parser.add_argument("-s", "--songs", help="generate boilerplate indices json file", action="store_true")
     args = parser.parse_args()
     main(args)
