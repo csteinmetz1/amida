@@ -17,8 +17,7 @@ def process(args):
     songs = json.load(open("songs.json"))
 
     print("Processing audio...")
-    for song in songs:
-    #for song in tqdm(songs, ncols=80):
+    for song in tqdm(songs, ncols=80):
         song_path = os.path.join(args.output, os.path.split(os.path.normpath(song['path']))[-1])
         stereo_path = os.path.join(song_path, "stereo")
         mono_path = os.path.join(song_path, "mono")
