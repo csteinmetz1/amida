@@ -91,6 +91,10 @@ def database(args):
 
 def main(args):
 
+    if args.song_idx:
+        util.generate_song_idx_json(args.input, "songs.json")
+        return None
+
     # create output directory
     if not os.path.isdir(args.output):
         print(args.output)
@@ -106,5 +110,6 @@ if __name__ == '__main__':
     parser.add_argument("input", help="path to input audio stems directory", type=str)
     parser.add_argument("output", help="path to 30 second samples stems directory", type=str)
     parser.add_argument("-j", "--json", help="generate json dataqase file", action="store_true")
+    parser.add_argument("-s", "--song_idx", help="generate boilerplate indices json file", action="store_true")
     args = parser.parse_args()
     main(args)
