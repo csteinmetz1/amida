@@ -8,7 +8,59 @@ import session from 'express-session';
 
 // Fetch the service account key JSON file contents
 import config from './keys.json';
-import { SSL_OP_SINGLE_DH_USE } from 'constants';
+
+// interfaces
+interface User {
+  id: string,
+  experience: number,
+  playback: string,
+  mixes: number[]
+}
+
+interface Song {
+  id: number,
+  artist: string,
+  title: string,
+  tracks: TrackList[]
+}
+
+interface TrackList {
+  bass: string,
+  drums: string,
+  other: string,
+  vocals: string
+}
+
+interface Mix {
+  songId: number,
+  userId: string,
+  bass: number,
+  drums: number,
+  other: number,
+  vocals: number,
+  datetime: string,
+  time: number
+}
+
+interface Session {
+  secret: string,
+  resave: boolean,
+  saveUninitialized: boolean,
+  userId: string,
+  songs: Song[]
+}
+
+interface SongListTemplate {
+  userId: string,
+  songs: Song[],
+  mixes: boolean[],
+  nMixes: number
+}
+
+interface MixerTemplate {
+  userId: string,
+  song: Song
+}
 
 // setup for firebase real-time database
 firebase.initializeApp({
@@ -30,13 +82,13 @@ app
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .use(cookieParser())
-  .use(session({ secret: 'tk421', resave: false, saveUninitialized: true, }));
+  .use(session({secret: 'tk421', resave: false, saveUninitialized: true}));
 
 // routes
 app.post('/login', function (req, res) { 	
   if (req.session) {
     db.ref("users").once("value", function(snapshot) {
-      var users = snapshot.val();
+      var users:User[] = snapshot.val();
       console.log(req.body.id, Object.keys(users));
       if (Object.keys(users).indexOf(req.body.id) < 0)
       {
@@ -47,6 +99,7 @@ app.post('/login', function (req, res) {
       else
       {
         req.session.userId = req.body.id;
+        console.log(req.session);
         // get songs from database and save
         db.ref("songs").once("value", function(snapshot) {
           req.session.songs = snapshot.val();
@@ -90,10 +143,17 @@ app.post('/new-user', function (req, res) {
 });
 
 app.get('/song-list', function (req, res) {
-  var data = {};
-  data.userId = req.session.userId;
-  data.songs = req.session.songs;
-  data.mixes = [];
+  //var data = {};
+  //data.userId = req.session.userId;
+  //data.songs = req.session.songs;
+  //data.mixes = [];
+
+  var data:SongListTemplate = {
+    userId: req.session.userId,
+    songs: req.session.songs,
+    mixes: [],
+    nMixes: 0
+  }
 
   db.ref("users/" + req.session.userId + "/mixes/")
     .once("value", function(snapshot) {
@@ -105,7 +165,7 @@ app.get('/song-list', function (req, res) {
       {
         var mixes = new Set();
       }
-      data.numMixes = mixes.size;
+      data.nMixes = mixes.size;
       for (var i=0; i < data.songs.length; i++)
       {
         if (mixes.has(i+1)) {
@@ -124,7 +184,7 @@ app.get('/mixer/:id', function (req, res) {
 
   db.ref("songs/" + `${parseInt(req.params.id) - 1}`)
     .once("value", function(snapshot) {
-      var data = {
+      var data:MixerTemplate = {
         "song" : snapshot.val(),
         "userId" : req.session.userId
       }
@@ -135,22 +195,22 @@ app.get('/mixer/:id', function (req, res) {
 
 app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req, res) {
 
-  console.log(req.params);
   var date = new Date().toISOString();
 
-  var mix = {
-    "userId" : req.params.userId,
-    "songId" : req.params.songId,
-    "bass" : req.params.bass,
-    "drums" : req.params.drums,
-    "other" : req.params.other,
-    "vocals" : req.params.vocals,
-    "time" : req.params.time,
-    "datetime" : date
+  var mix:Mix = {
+    userId : req.params.userId,
+    songId : parseInt(req.params.songId),
+    bass : parseFloat(req.params.bass),
+    drums : parseFloat(req.params.drums),
+    other : parseFloat(req.params.other),
+    vocals : parseFloat(req.params.vocals),
+    time : parseFloat(req.params.time),
+    datetime : date
   }
 
   db.ref("mixes/")
     .push(mix, function() {
+      console.log(mix);
       //res.status(204).send(); 
       res.redirect("/song-list")
   });
