@@ -19,9 +19,11 @@
   },
   "devDependencies": {},
   "scripts": {
+    "html" : "cp -r ./src/public ./build/public/",
+    "views" : "cp -r ./src/views ./build/views/",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
-    "prod": "tsc && node ./build/app.js"
+    "prod": "npm run html && npm run views && tsc && node ./build/app.js"
   },
   "repository": {
     "type": "git",

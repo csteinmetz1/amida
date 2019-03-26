@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
 // Fetch the service account key JSON file contents
-import config from './keys.json';
+var ServiceAccount = require('./keys.json') as firebase.ServiceAccount;
 
 // interfaces
 interface User {
@@ -64,7 +64,7 @@ interface MixerTemplate {
 
 // setup for firebase real-time database
 firebase.initializeApp({
-  credential: firebase.credential.cert(config),
+  credential: firebase.credential.cert(ServiceAccount),
   databaseURL: 'https://amida-4242.firebaseio.com'
 });
 
@@ -86,7 +86,7 @@ app
 
 // routes
 app.post('/login', function (req, res) { 	
-  if (req.session) {
+  if (req.session !== undefined) {
     db.ref("users").once("value", function(snapshot) {
       var users:User[] = snapshot.val();
       console.log(req.body.id, Object.keys(users));
@@ -98,11 +98,10 @@ app.post('/login', function (req, res) {
       }
       else
       {
-        req.session.userId = req.body.id;
-        console.log(req.session);
+        req.session!.userId = req.body.id;
         // get songs from database and save
         db.ref("songs").once("value", function(snapshot) {
-          req.session.songs = snapshot.val();
+          req.session!.songs = snapshot.val();
           return res.redirect('/song-list');
         });
       }
@@ -116,7 +115,7 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/logout', function (req, res) { 	
-  if (req.session) {
+  if (req.session !== undefined) {
     req.session.destroy(function(err) {
       if (err) return console.log(err);
         return res.redirect('/');
@@ -125,7 +124,7 @@ app.get('/logout', function (req, res) {
 });
 
 app.post('/new-user', function (req, res) { 	
-  if (req.session) {
+  if (req.session !== undefined) {
     req.session.userId = req.body.id;
     var userData = {
       "id" : req.body.id,
@@ -133,7 +132,7 @@ app.post('/new-user', function (req, res) {
       "playback" : req.body.playback,
     }
     db.ref("songs").once("value", function(snapshot) {
-      req.session.songs = snapshot.val();
+      req.session!.songs = snapshot.val();
       res.redirect('/song-list');
     });
     db.ref("users/" + req.body.id)
@@ -143,27 +142,20 @@ app.post('/new-user', function (req, res) {
 });
 
 app.get('/song-list', function (req, res) {
-  //var data = {};
-  //data.userId = req.session.userId;
-  //data.songs = req.session.songs;
-  //data.mixes = [];
 
   var data:SongListTemplate = {
-    userId: req.session.userId,
-    songs: req.session.songs,
+    userId: req.session!.userId,
+    songs: req.session!.songs,
     mixes: [],
     nMixes: 0
   }
 
-  db.ref("users/" + req.session.userId + "/mixes/")
+  db.ref("users/" + req.session!.userId + "/mixes/")
     .once("value", function(snapshot) {
+      let mixes = new Set();
       if (snapshot.exists())
       {
-        var mixes = new Set(Object.values(snapshot.val()).map(Number));
-      }
-      else
-      {
-        var mixes = new Set();
+        mixes = new Set(Object.values(snapshot.val()).map(Number));
       }
       data.nMixes = mixes.size;
       for (var i=0; i < data.songs.length; i++)
@@ -186,7 +178,7 @@ app.get('/mixer/:id', function (req, res) {
     .once("value", function(snapshot) {
       var data:MixerTemplate = {
         "song" : snapshot.val(),
-        "userId" : req.session.userId
+        "userId" : req.session!.userId
       }
       console.log(data);
       res.render('mixer.ejs', { data });  
