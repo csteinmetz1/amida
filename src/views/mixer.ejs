@@ -29,14 +29,14 @@
 					<% } %>
 				</p>
 			</div>
-			<tone-content class="fade-in one">
-				<div id="tracks">
+			<tone-content>
+				<div id="tracks" style="opacity: 0;">
 					<tone-channel label="bass" id="bass"></tone-channel>
 					<tone-channel label="drums" id="drums"></tone-channel>
 					<tone-channel label="other" id="other"></tone-channel>
 					<tone-channel label="vocals" id="vocals"></tone-channel>
+					<tone-play-toggle></tone-play-toggle>
 				</div>
-				<tone-play-toggle></tone-play-toggle>
 			<p id="loading">Loading...</p>
 			</tone-content>
 			<button class="save-button" type="btn" onclick="save('<%= data.userId %>', '<%= data.song.id %>');"">
@@ -98,8 +98,12 @@
 		var interval = setInterval(function() {
 			if (b.loaded && d.loaded && o.loaded && v.loaded) { 
 				var loading = document.getElementById("loading");
-				loading.innerHTML = "Loaded.";
+				var tracks  = document.getElementById("tracks");
+				loading.innerHTML = "";
+				tracks.classList.add("fade-in");
+				tracks.style.opacity = 1.0;
 				clearInterval(interval);
+				return;
 			}
 		}, 250); 
 
