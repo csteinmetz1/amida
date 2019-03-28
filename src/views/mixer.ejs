@@ -37,6 +37,7 @@
 					<tone-channel label="vocals" id="vocals"></tone-channel>
 				</div>
 				<tone-play-toggle></tone-play-toggle>
+			<p id="loading">Loading...</p>
 			</tone-content>
 			<button class="save-button" type="btn" onclick="save('<%= data.userId %>', '<%= data.song.id %>');"">
 				<p>Save</p>
@@ -59,6 +60,7 @@
 			player.chain(channel);
 			//bind the UI
 			document.querySelector(`#${name}`).bind(channel);
+			return player;
 		}	
 
 		function save(userId, songId) {
@@ -68,9 +70,6 @@
 			var gains = [];
 
 			for (var idx = 0; idx<channels.length; idx++) {
-				//console.log(channels[idx].shadowRoot.childNodes[4].childNodes[3]
-				//.childNodes[3].shadowRoot.childNodes[4].childNodes[3].childNodes[3].nodeValue);
-
 				gains.push(parseInt(channels[idx].shadowRoot.querySelector("tone-volume-slider")
 									.shadowRoot.querySelector("#number").childNodes[3].nodeValue));			
 			}
@@ -88,12 +87,22 @@
 			}
 		}
 	
-		makeChannel("bass",   "/<%- data.song.tracks.stereo['bass'] %>"   );
-		makeChannel("drums",  "/<%- data.song.tracks.stereo['drums'] %>"  );
-		makeChannel("other",  "/<%- data.song.tracks.stereo['other'] %>"  );
-		makeChannel("vocals", "/<%- data.song.tracks.stereo['vocals'] %>" );
+		b = makeChannel("bass",   "/<%- data.song.tracks.stereo['bass'] %>"   );
+		d = makeChannel("drums",  "/<%- data.song.tracks.stereo['drums'] %>"  );
+		o = makeChannel("other",  "/<%- data.song.tracks.stereo['other'] %>"  );
+		v = makeChannel("vocals", "/<%- data.song.tracks.stereo['vocals'] %>" );
 		document.querySelector("tone-play-toggle").bind(Tone.Transport);
 		removePans();
+		
+		// check if all audio files have loaded
+		var interval = setInterval(function() {
+			if (b.loaded && d.loaded && o.loaded && v.loaded) { 
+				var loading = document.getElementById("loading");
+				loading.innerHTML = "Loaded.";
+				clearInterval(interval);
+			}
+		}, 250); 
+
 	</script>
 </body>
 </html>
