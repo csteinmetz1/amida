@@ -86,6 +86,21 @@
 				channels[idx].shadowRoot.childNodes[4].childNodes[5].remove();
 			}
 		}
+
+		function checkLoadStatus(b, d, v, o) {
+			var interval = setInterval(function() {
+				// check if all audio files have loaded
+				if (b.loaded && d.loaded && o.loaded && v.loaded) { 
+					var loading = document.getElementById("loading");
+					var tracks  = document.getElementById("tracks");
+					loading.innerHTML = "";
+					tracks.classList.add("fade-in");
+					tracks.style.opacity = 1.0;
+					clearInterval(interval);
+					return;
+				}
+			}, 250); 
+		}
 	
 		b = makeChannel("bass",   "/<%- data.song.tracks.stereo['bass'] %>"   );
 		d = makeChannel("drums",  "/<%- data.song.tracks.stereo['drums'] %>"  );
@@ -93,20 +108,7 @@
 		v = makeChannel("vocals", "/<%- data.song.tracks.stereo['vocals'] %>" );
 		document.querySelector("tone-play-toggle").bind(Tone.Transport);
 		removePans();
-		
-		// check if all audio files have loaded
-		var interval = setInterval(function() {
-			if (b.loaded && d.loaded && o.loaded && v.loaded) { 
-				var loading = document.getElementById("loading");
-				var tracks  = document.getElementById("tracks");
-				loading.innerHTML = "";
-				tracks.classList.add("fade-in");
-				tracks.style.opacity = 1.0;
-				clearInterval(interval);
-				return;
-			}
-		}, 250); 
-
+		checkLoadStatus(b, d, o, v);
 	</script>
 </body>
 </html>
