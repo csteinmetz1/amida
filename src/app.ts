@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
 // Fetch the service account key JSON file contents
-var ServiceAccount = require('./keys.json') as firebase.ServiceAccount;
+var ServiceAccount = require(__dirname + '/keys.json') as firebase.ServiceAccount;
 
 // interfaces
 interface User {
