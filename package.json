@@ -23,7 +23,7 @@
     "views" : "cp -r ./src/views ./build/views/",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
-    "prod": "npm run html && npm run views && tsc && node ./build/app.js"
+    "prod": "tsc && node ./build/app.js && npm run html && npm run views"
   },
   "repository": {
     "type": "git",

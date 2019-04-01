@@ -81,6 +81,7 @@ typings/
 
 # API keys
 src/keys.json
+scripts/config.json
 
 # Dataset files
 DSD100/
@@ -91,3 +92,6 @@ __pycache__
 
 # vscode files
 .vscode
+
+# build
+build/
