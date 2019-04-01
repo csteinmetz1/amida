@@ -21,9 +21,10 @@
   "scripts": {
     "html" : "cp -r ./src/public ./build/public/",
     "views" : "cp -r ./src/views ./build/views/",
+    "keys" : " cp ./src/keys.json ./build/keys.json",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
-    "prod": "tsc && node ./build/app.js && npm run html && npm run views"
+    "prod": "tsc && npm run html && npm run views && npm run keys && node ./build/app.js"
   },
   "repository": {
     "type": "git",
