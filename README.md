@@ -1,6 +1,10 @@
 # amida
 audio mixing interface for data acquisition
 
+## Demo
+
+![amida](img/amida_mix.gif)
+
 ## Setup
 Clone this repo
 ```
