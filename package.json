@@ -1,5 +1,5 @@
 {
-  "name": "ts-express",
+  "name": "amida",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -28,12 +28,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andregardi/ts-express.git"
+    "url": "git+https://github.com/csteinmetz1/amida.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/andregardi/ts-express/issues"
+    "url": "https://github.com/csteinmetz1/amida/issues"
   },
-  "homepage": "https://github.com/andregardi/ts-express#readme"
+  "homepage": "https://github.com/csteinmetz1/amida#readme"
 }
