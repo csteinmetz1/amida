@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <div class="home">
+  <div class="home">
 		<div style="margin: 100px 0 25px 0;">
 			<h1>amida</h1>
 			<p>audio mixing interface for data acquisition</p>
@@ -16,23 +16,32 @@
 			<form action="/new-user" method="post">
 			<h3>Create user id</h3>
 			<input type="text" name="id" value="" required placeholder="user id">
+			<p>You will use this to resume your session.</p>
 			<br>
 			<h3>Mixing experience</h3>
 			<input type="number" id="number" name="experience" min="0" max="100" placeholder="0" required> years
+			<p>How long have you been mixing music?</p>
 			<br>
 			<h3>Playback setup</h3>
-			<select name="playback" required>
-				<option value="headphones">Headphones</option>
-				<option value="studio">Studio Monitors</option>
-				<option value="earbuds">Earbuds</option>
-				<option value="laptop">Laptop speakers</option>
-			</select>
-			<br>
-			<br>
+			<div class="select">
+				<span class="arr"></span>
+				<select name="playback" required>
+					<option value="headphones">Headphones</option>
+					<option value="studio">Studio Monitors</option>
+					<option value="earbuds">Earbuds</option>
+					<option value="laptop">Laptop speakers</option>
+					<option value="other">Other</option>
+				</select>
+			</div>
+			<p>Which option best describes your listening setup?</p>
 			<input class="save-button" class type="submit" value="Submit">
 			</form> 
 		</div>
+		<div style="margin: 15px 0 25px 0;">
+			<p>By clicking submit you agree that your data may be used anonymously as part of a scientific study.</p>
+		</div>
 	</div>
+
 	<div class="footer">
 		<p>© 2019 Christian Steinmetz - <a href="https://github.com/csteinmetz1/amida"> source code </a> </p>
 	</div>

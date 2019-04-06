@@ -29,7 +29,7 @@
 }
 
 .home {
-  width: 570px;
+  width: 500px;
 
   position:absolute; /*it can be fixed too*/
   left:0; right:0;
@@ -125,8 +125,7 @@ a, a:link, a:visited, a:focus, a:active {
 
 input[type="submit"] {
   text-align: center;
-  display: block;
-  margin: 0 auto;
+  margin-top: 50px;
 }
 
 input[type="radio"] {
@@ -149,7 +148,6 @@ input[type="text"] {
 
 input[type="number"] {
   width: 100%;
-
   margin: 15px 0 15px 0;
   box-sizing: border-box;
   border: none;
@@ -159,6 +157,66 @@ input[type="number"] {
   font-size: 15px;
   text-align: center;
   border-bottom: 2px solid #272727; /* Green */ 
+}
+
+.select {
+  font-size: 14px;
+  position: relative;
+  display: inline-block;
+  padding: 5px 0px 10px 0px;
+
+}
+
+.select select {
+  outline: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 175px;
+  padding: 5px 10px 5px 10px;
+  margin: 0;
+
+  transition: border-color 0.2s;
+  border: 2px solid #272727;
+  border-radius: 5px;
+
+  background: #fff;
+  color: #555;
+  line-height: normal;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.select .arr {
+  bottom: 1px;
+  position: absolute;
+  right: -10px;
+  top: 1px;
+  width: 50px;
+  pointer-events: none;
+}
+.select .arr:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  margin-top: -5px;
+  pointer-events: none;
+  border-top: 10px solid #272727;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.select .arr:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 28px;
+  margin-top: -5px;
+  pointer-events: none;
+  border-top: 6px solid #fff;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
 }
 
 .footer {
