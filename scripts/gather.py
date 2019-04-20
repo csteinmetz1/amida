@@ -1,3 +1,4 @@
+import os
 import json
 import pyrebase
 
@@ -6,8 +7,18 @@ config = json.load(open("scripts/config.json"))
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
-# get users
-print(db.child("users").get().val())
+# create directory for storing data
+data_dir = "scripts/data"
+if not os.path.isdir(data_dir):
+	os.makedirs(data_dir)
 
-# get mixes
-print(db.child("mixes").get().val())
+# grab latest data from the database
+users = db.child("users").get().val()	# get users
+mixes = db.child("mixes").get().val()	# get mixes
+
+# save data to json files
+with open(os.path.join(data_dir, "users.json"), 'w') as fp:
+	json.dump(users, fp, indent=2)
+
+with open(os.path.join(data_dir, "mixes.json"), 'w') as fp:
+	json.dump(mixes, fp, indent=2)
