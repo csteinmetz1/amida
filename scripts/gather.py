@@ -22,3 +22,8 @@ with open(os.path.join(data_dir, "users.json"), 'w') as fp:
 
 with open(os.path.join(data_dir, "mixes.json"), 'w') as fp:
 	json.dump(mixes, fp, indent=2)
+
+# print data updates
+n_mixes = len(mixes.items())
+n_users = len(users.items())
+print(f"\nDonwloaded {n_mixes} mixes form {n_users} users.\n")
