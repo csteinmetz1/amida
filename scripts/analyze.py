@@ -40,12 +40,20 @@ def	n_playback_setups():
     playback_setups = []
     for setup in setups:
         playback_setups.append(np.sum([len(m["mixes"]) for k, m in users.items() if m["playback"] == setup and "mixes" in m]))
-    
+
     # create bar plot for all users
     fig, ax = plt.subplots(1, figsize=(8,4))
     setups_idx = np.arange(0, len(playback_setups))
-    bp = ax.bar(setups_idx, playback_setups)
-    plt.xticks(setups_idx, setups)
+
+    # sort
+    sorted_setups = zip(setups, playback_setups)
+    sorted_setups = sorted(sorted_setups, key=lambda x: x[1], reverse=True)
+    setups_names, counts = zip(*sorted_setups)         
+    setups_names = list(setups_names)
+    counts = list(counts)
+
+    bp = ax.bar(setups_idx, counts)
+    plt.xticks(setups_idx, setups_names)
     ax.set_title(f"Number of mixes performed on each playback setup")
     ax.set_ylabel("Mixes")
     ax.spines['right'].set_visible(False)
@@ -171,14 +179,14 @@ if __name__ == "__main__":
     # ------------------------------
     # user analysis
     # ------------------------------
-    n_mixes_by_user()
-    n_mixes_by_song()
-    mean_mix_time_by_song()
-    mix_time_by_song()
+    #n_mixes_by_user()
+    #n_mixes_by_song()
+    #mean_mix_time_by_song()
+    #mix_time_by_song()
     n_playback_setups()
 
     # ------------------------------
     # mix analysis
     # ------------------------------
-    mean_mix_coeffs()
-    mean_mix_coeff_by_song_stem()
+    #mean_mix_coeffs()
+    #mean_mix_coeff_by_song_stem()
