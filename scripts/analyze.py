@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # -----------------------------------------------------------------------------
 data_dir = "scripts/data"
 plot_dir = "plots"
-plot_type = ".png"
+plot_type = ".eps"
 stems = ["drums", "bass", "other", "vocals"]
 setups = ["headphones", "laptop", "earbuds", "studio", "other"]
 songs = np.arange(1, 101)
@@ -24,12 +24,14 @@ def n_mixes_by_user():
     # create bar plot for all users
     fig, ax = plt.subplots(1, figsize=(8,4))
     bp = ax.bar(user_list, mixes_by_user)
-    plt.xticks(user_list, rotation=90)
+    plt.xticks(user_list, rotation=0)
     ax.set_title(f"Number of mixes by each user")
     ax.set_ylabel("Mixes")
+    ax.set_xlabel("Users")
     ax.set_xlim([0, len(mixes_by_user)+1])
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
+    plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "n_mixes_by_user" + plot_type))
     plt.close()
 
@@ -58,6 +60,7 @@ def	n_playback_setups():
     ax.set_ylabel("Mixes")
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
+    plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "n_playback_setups" + plot_type))
     plt.close()
 
@@ -78,6 +81,7 @@ def n_mixes_by_song():
     ax.set_xlim([songs[0]-1,songs[-1]+1])
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
+    plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "n_mixes_by_song" + plot_type))
     plt.close()
 
@@ -98,6 +102,7 @@ def mean_mix_time_by_song():
     ax.set_xlim([songs[0]-1,songs[-1]+1])
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
+    plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "mean_mix_time_by_song" + plot_type))
     plt.close()
 
@@ -116,7 +121,7 @@ def mix_time_by_song():
     ax.set_xticklabels(songs)
     ax.tick_params(axis='x', rotation=90)
     ax.set_ylabel("Gain (dB)")
-
+    plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "mix_time_by_song" + plot_type))
     plt.close()
 
@@ -135,6 +140,7 @@ def mean_mix_coeffs():
     ax.set_xticklabels(stems)
     ax.set_title("Level settings across all mixes")
     ax.set_ylabel("Gain (dB)")
+    plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "mean_mix_coeffs" + plot_type))
     plt.close()
 
@@ -155,10 +161,35 @@ def mean_mix_coeff_by_song_stem():
         ax[idx].tick_params(axis='x', rotation=90)
         ax[idx].text(102, -5, f"{stem}")
         ax[idx].set_ylabel("Gain (dB)")
+        ax[idx].set_ylim([-20, 10])
 
+
+    plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "mean_mix_coeff_by_song_stem" + plot_type))
     plt.close()
 
+# -----------------------------------------------------------------------------
+# find the mean mix coefficients for each song by stem type (show only first 10)
+# -----------------------------------------------------------------------------
+def mean_mix_coeff_by_song_stem_first_n(n):
+    # create box plot for stems across all songs
+    fig, ax = plt.subplots(4, figsize=(10,10))
+
+    for idx, stem in enumerate(stems):
+        all_mixes = []
+        for song in songs[0:n]:
+            all_mixes.append([m[stem] for k, m in mixes.items() if m["songId"] == song and m[stem] > -80])
+
+        bp = ax[idx].boxplot(all_mixes)
+        ax[idx].set_xticklabels(songs)
+        ax[idx].tick_params(axis='x', rotation=90)
+        ax[idx].text(11, -5, f"{stem}")
+        ax[idx].axhline(0, color='grey', linestyle='dotted')
+        ax[idx].set_ylabel("Gain (dB)")
+        ax[idx].set_ylim([-15, 5])
+
+    plt.savefig(os.path.join(plot_dir, f"mean_mix_coeff_by_song_stem_first_{n}" + plot_type))
+    plt.close()
 
 if __name__ == "__main__":
 
@@ -183,10 +214,11 @@ if __name__ == "__main__":
     #n_mixes_by_song()
     #mean_mix_time_by_song()
     #mix_time_by_song()
-    n_playback_setups()
+    #n_playback_setups()
 
     # ------------------------------
     # mix analysis
     # ------------------------------
     #mean_mix_coeffs()
     #mean_mix_coeff_by_song_stem()
+    mean_mix_coeff_by_song_stem_first_n(10)
