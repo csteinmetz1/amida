@@ -22,10 +22,10 @@ def n_mixes_by_user():
     user_list = np.arange(1, len(mixes_by_user)+1)
 
     # create bar plot for all users
-    fig, ax = plt.subplots(1, figsize=(8,4))
+    fig, ax = plt.subplots(1, figsize=(6,3))
     bp = ax.bar(user_list, mixes_by_user)
     plt.xticks(user_list, rotation=0)
-    ax.set_title(f"Number of mixes by each user")
+    #ax.set_title(f"Number of mixes by each user")
     ax.set_ylabel("Mixes")
     ax.set_xlabel("Users")
     ax.set_xlim([0, len(mixes_by_user)+1])
@@ -34,6 +34,8 @@ def n_mixes_by_user():
     plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "n_mixes_by_user" + plot_type))
     plt.close()
+
+    print("mean num mixes per user: ", np.sum(mixes_by_user)/len(users.items()))
 
 # -----------------------------------------------------------------------------
 # frequency of different playback methods by number of mixes per setup
@@ -44,7 +46,7 @@ def	n_playback_setups():
         playback_setups.append(np.sum([len(m["mixes"]) for k, m in users.items() if m["playback"] == setup and "mixes" in m]))
 
     # create bar plot for all users
-    fig, ax = plt.subplots(1, figsize=(8,4))
+    fig, ax = plt.subplots(1, figsize=(6,3))
     setups_idx = np.arange(0, len(playback_setups))
 
     # sort
@@ -56,7 +58,7 @@ def	n_playback_setups():
 
     bp = ax.bar(setups_idx, counts)
     plt.xticks(setups_idx, setups_names)
-    ax.set_title(f"Number of mixes performed on each playback setup")
+    #ax.set_title(f"Number of mixes performed on each playback setup")
     ax.set_ylabel("Mixes")
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
@@ -76,13 +78,34 @@ def n_mixes_by_song():
     fig, ax = plt.subplots(1, figsize=(20,8))
     bp = ax.bar(songs, num_mixes)
     plt.xticks(songs, rotation=90)
-    ax.set_title(f"Number of mixes per song")
+    #ax.set_title(f"Number of mixes per song")
     ax.set_ylabel("Mixes")
     ax.set_xlim([songs[0]-1,songs[-1]+1])
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
     plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "n_mixes_by_song" + plot_type))
+    plt.close()
+
+# -----------------------------------------------------------------------------
+# plot the number of mixes for each of the songs across first n songs
+# -----------------------------------------------------------------------------
+def n_mixes_by_song_first_n(n):
+    num_mixes = []
+    for song in songs:
+        num_mixes.append(len([m for k, m in mixes.items() if m["songId"] == song]))
+
+    # create bar plots for all songs
+    fig, ax = plt.subplots(1,  figsize=(6,3))
+    bp = ax.bar(songs[0:n], num_mixes[0:n])
+    plt.xticks(songs[0:n], rotation=0)
+    ax.set_ylabel("Mixes")
+    ax.set_xlabel("Song")
+    ax.set_xlim([0,n+1])
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    plt.tight_layout()
+    plt.savefig(os.path.join(plot_dir, f"n_mixes_by_song_first_{n}" + plot_type))
     plt.close()
 
 # -----------------------------------------------------------------------------
@@ -97,7 +120,7 @@ def mean_mix_time_by_song():
     fig, ax = plt.subplots(1, figsize=(20,8))
     bp = ax.bar(songs, mix_times, width=0.8)
     plt.xticks(songs, rotation=90)
-    ax.set_title("Mean mix time")
+    #ax.set_title("Mean mix time")
     ax.set_ylabel("Mix time (seconds)")
     ax.set_xlim([songs[0]-1,songs[-1]+1])
     ax.spines['right'].set_visible(False)
@@ -120,9 +143,29 @@ def mix_time_by_song():
     bp = ax.boxplot(all_mixes)
     ax.set_xticklabels(songs)
     ax.tick_params(axis='x', rotation=90)
-    ax.set_ylabel("Gain (dB)")
+    ax.set_ylabel("Time (sec)")
     plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "mix_time_by_song" + plot_type))
+    plt.close()
+
+# -----------------------------------------------------------------------------
+# boxplot for the mix time for firs n songs
+# -----------------------------------------------------------------------------
+def mix_time_by_song_first_n(n):
+    all_mixes = []
+    for song in songs:
+        all_mixes.append([m["time"] for k, m in mixes.items() if m["songId"] == song])
+
+    # create box plot for stems across all songs
+    fig, ax = plt.subplots(1, figsize=(6,3))
+
+    bp = ax.boxplot(all_mixes[0:n])
+    ax.set_xticklabels(songs[0:n])
+    ax.tick_params(axis='x', rotation=0)
+    ax.set_ylabel("Time (sec)")
+    ax.set_xlabel("Song")
+    plt.tight_layout()
+    plt.savefig(os.path.join(plot_dir, f"mix_time_by_song_first_{n}" + plot_type))
     plt.close()
 
 # -----------------------------------------------------------------------------
@@ -135,10 +178,11 @@ def mean_mix_coeffs():
         overall_mixes.append([m[stem] for k, m in mixes.items() if m[stem] > -80])
 
     # create box plot for stems across all songs
-    fig, ax = plt.subplots(1, figsize=(6,4))
+    fig, ax = plt.subplots(1, figsize=(6,3))
     bp = ax.boxplot(overall_mixes)
     ax.set_xticklabels(stems)
-    ax.set_title("Level settings across all mixes")
+    ax.axhline(0, color='grey', linestyle='dotted')
+    #ax.set_title("Level settings across all mixes")
     ax.set_ylabel("Gain (dB)")
     plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "mean_mix_coeffs" + plot_type))
@@ -160,11 +204,10 @@ def mean_mix_coeff_by_song_stem():
         ax[idx].set_xticklabels(songs)
         ax[idx].tick_params(axis='x', rotation=90)
         ax[idx].text(102, -5, f"{stem}")
+        ax[idx].axhline(0, color='grey', linestyle='dotted')
         ax[idx].set_ylabel("Gain (dB)")
         ax[idx].set_ylim([-20, 10])
 
-
-    plt.tight_layout()
     plt.savefig(os.path.join(plot_dir, "mean_mix_coeff_by_song_stem" + plot_type))
     plt.close()
 
@@ -173,7 +216,7 @@ def mean_mix_coeff_by_song_stem():
 # -----------------------------------------------------------------------------
 def mean_mix_coeff_by_song_stem_first_n(n):
     # create box plot for stems across all songs
-    fig, ax = plt.subplots(4, figsize=(10,10))
+    fig, ax = plt.subplots(4, figsize=(8,8))
 
     for idx, stem in enumerate(stems):
         all_mixes = []
@@ -210,15 +253,17 @@ if __name__ == "__main__":
     # ------------------------------
     # user analysis
     # ------------------------------
-    #n_mixes_by_user()
-    #n_mixes_by_song()
-    #mean_mix_time_by_song()
-    #mix_time_by_song()
-    #n_playback_setups()
+    n_mixes_by_user()
+    n_mixes_by_song()
+    n_mixes_by_song_first_n(10)
+    mean_mix_time_by_song()
+    mix_time_by_song()
+    mix_time_by_song_first_n(10)
+    n_playback_setups()
 
     # ------------------------------
     # mix analysis
     # ------------------------------
-    #mean_mix_coeffs()
-    #mean_mix_coeff_by_song_stem()
+    mean_mix_coeffs()
+    mean_mix_coeff_by_song_stem()
     mean_mix_coeff_by_song_stem_first_n(10)
