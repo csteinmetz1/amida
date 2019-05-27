@@ -73,7 +73,7 @@ interface MixerTemplate {
  * @param  {Array} array The array to shuffle
  * @return {String}      The first item in the shuffled array
  */
-var shuffle = function (array) {
+var shuffle = function (array:number[]) {
 
 	var currentIndex = array.length;
 	var temporaryValue, randomIndex;
