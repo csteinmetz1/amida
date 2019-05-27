@@ -9,12 +9,11 @@
 </head>
 
 <body>
-	<div style="margin: 15px 0 10px 0;">
-		<p style="display: inline;"> Logged in as <strong><%= data.userId %></strong></p>
-		<button class="save-button" type="btn" onclick="location.href = '/logout';"">
-			<p>Logout</p>
-		</button>
-		<p> You've mixed <%= data.nMixes %> songs out of <%= data.songs.length %> </p>
+	<div style="margin: 15px 0 10px 0;"">
+		<a class="home-link" href="/">
+			<h1>amida</h1>
+			<p>You've mixed <%= data.nMixes %> songs out of <%= data.songs.length %> </p>
+		</a>
 	</div>
     <div class="song-list fade-in one">
 	<h2>Songs</h2>

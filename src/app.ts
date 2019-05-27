@@ -14,7 +14,10 @@ interface User {
   id: string,
   experience: number,
   playback: string,
-  mixes: number[]
+  mixes: number[],
+  skips: number[],
+  nMixes: number,
+  nSkips: number
 }
 
 interface Song {
@@ -59,8 +62,37 @@ interface SongListTemplate {
 
 interface MixerTemplate {
   userId: string,
-  song: Song
+  song: Song,
+  nMixes: number,
+  nSkips: number
 }
+
+/**
+ * Randomly shuffle an array
+ * https://stackoverflow.com/a/2450976/1293256
+ * @param  {Array} array The array to shuffle
+ * @return {String}      The first item in the shuffled array
+ */
+var shuffle = function (array) {
+
+	var currentIndex = array.length;
+	var temporaryValue, randomIndex;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+
+	return array;
+
+};
 
 // setup for firebase real-time database
 firebase.initializeApp({
@@ -135,12 +167,47 @@ app.post('/new-user', function (req, res) {
     }
     db.ref("songs").once("value", function(snapshot) {
       req.session!.songs = snapshot.val();
-      res.redirect('/song-list');
+      req.session!.mix_order = shuffle(Array.from({length: 100}, (x,i) => i+1));
+      req.session!.nMixes = 0;
+      req.session!.nSkips = 0;
+      res.redirect('/mixer/'+ req.session!.mix_order.pop());
     });
     var new_post_ref = db.ref("users/")
       .push(userData, function() {
     });
     req.session.userId = new_post_ref.key;
+  }
+});
+
+app.get('/next/:id/:type', function (req, res) { 	
+  if (req.session !== undefined) {
+    var nSkips:number;
+    if (req.params.type == "skip") {
+       db.ref("users/" + req.session.userId + "/nSkips/")
+        .once("value", function(snapshot) {
+          nSkips = snapshot.val() + 1;
+          db.ref("users/" + req.session!.userId + "/nSkips/")
+            .set(nSkips, function() {
+          });
+          db.ref("users/" + req.session!.userId + "/skips/")
+            .push(req.params.id, function() {
+          });
+        })
+    }
+    else {
+      var nMixes:number;
+      db.ref("users/" + req.session.userId + "/nMixes/")
+        .once("value", function(snapshot) {
+          nMixes = snapshot.val() + 1;
+          db.ref("users/" + req.session!.userId + "/nMixes/")
+            .set(nMixes, function() {
+          });
+          db.ref("users/" + req.session!.userId + "/mixes/")
+            .push(req.params.id, function() {
+          });
+        })
+    }
+    res.redirect('/mixer/'+ req.session!.mix_order.pop());
   }
 });
 
@@ -177,14 +244,29 @@ app.get('/song-list', function (req, res) {
 
 app.get('/mixer/:id', function (req, res) {
 
+  var nMixes:number;
+  var nSkips:number;
+  var song:Song;
+
   db.ref("songs/" + `${parseInt(req.params.id) - 1}`)
     .once("value", function(snapshot) {
-      var data:MixerTemplate = {
-        "song" : snapshot.val(),
-        "userId" : req.session!.userId
-      }
-      console.log(data);
-      res.render('mixer.ejs', { data });  
+      song = snapshot.val();
+      db.ref("users/" + req.session!.userId + "/nMixes")
+        .once("value", function(snapshot) {
+          nMixes = snapshot.val();
+          db.ref("users/" + req.session!.userId + "/nSkips")
+          .once("value", function(snapshot) {
+            nSkips = snapshot.val();
+            var data:MixerTemplate = {
+              "song" : song,
+              "userId" : req.session!.userId,
+              "nMixes" : nMixes,
+              "nSkips" : nSkips
+            }
+            console.log(data);
+            res.render('mixer.ejs', { data });  
+          })
+        })
   });
 });
 
@@ -207,13 +289,8 @@ app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req
     .push(mix, function() {
       console.log(mix);
       //res.status(204).send(); 
-      res.redirect("/song-list")
+      res.redirect(`/next/${req.params.songId}/save`)
   });
-
-  db.ref("users/" + req.params.userId + "/mixes/")
-    .push(req.params.songId, function() {
-  });
-
 });
 
 app.listen(3000, function () {

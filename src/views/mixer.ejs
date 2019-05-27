@@ -9,26 +9,17 @@
 </head>
 
 <body>
-		<div style="margin: 15px 0 10px 0;">
-				<p style="display: inline;"> Logged in as <strong><%= data.userId %></strong></p>
-				<button class="save-button" type="btn" onclick="location.href = '/logout';"">
-					<p>Logout</p>
-				</button>
-			</div>
+		<div style="margin: 100px 0 15px 0;">
+			<h1>amida</h1>
+			<p class="counter">
+				Songs mixed: <strong> <%= data.nMixes %> </strong> |
+				Songs skipped: <strong> <%= data.nSkips %> </strong> |
+				Songs Remaining: <strong><%= 100 - (data.nSkips + data.nMixes) %> </strong>
+			</p>
+		</div>
     <section>
 		<div class="mixer">
 			<h2 style="text-align: center;"> <%= data.song.id %> - <%= data.song.artist %> - <%= data.song.title %></h2>
-			<div class="nav"> 
-				<p>
-					<% if (data.song.id - 1 > 0) { %>
-						<a href="/mixer/<%= data.song.id - 1 %>">Prev</a> | 
-					<% } %>
-						<a href="/song-list">Songs</a> 
-					<% if (data.song.id + 1 <= 100) { %>
-						| <a href="/mixer/<%= data.song.id + 1 %>">Next</a>
-					<% } %>
-				</p>
-			</div>
 			<tone-content>
 				<div id="tracks" style="opacity: 0;">
 					<tone-channel label="bass" id="bass"></tone-channel>
@@ -40,7 +31,10 @@
 			<p id="loading">Loading...</p>
 			</tone-content>
 			<button class="save-button" type="btn" onclick="save('<%= data.userId %>', '<%= data.song.id %>');"">
-				<p>Save</p>
+				<p>Submit</p>
+			</button>
+			<button class="save-button" type="btn" onclick="skip('<%= data.song.id %>')">
+				<p>Skip</p>
 			</button>
 			<p id="result"></p>
 		</div>
@@ -62,6 +56,10 @@
 			document.querySelector(`#${name}`).bind(channel);
 			return player;
 		}	
+
+		function skip(songId) {
+			location.href = `/next/${songId}/skip`;
+		}
 
 		function save(userId, songId) {
 			var mixTime = (window.performance.now() - start)/1000; // stop timing the mix in seconds

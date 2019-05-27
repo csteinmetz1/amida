@@ -1,8 +1,7 @@
 .mixer {
   width: 580px;
-  height: 500px;
+  height: 550px;
 
-  position:absolute; /*it can be fixed too*/
   left:0; right:0;
   top:0; bottom:0;
   margin:auto;
@@ -118,6 +117,10 @@ p {
   font: 400 15px/1.5 Helvetica, Verdana, sans-serif;
   margin: 0;
   padding: 0;
+}
+
+p.counter {
+  text-align: center;
 }
 
 a, a:link, a:visited, a:focus, a:active {
