@@ -86,6 +86,7 @@ scripts/config.json
 # Dataset files
 DSD100/
 src/public/output/
+archives/
 
 # Python files
 __pycache__
@@ -95,3 +96,6 @@ __pycache__
 
 # build
 build/
+
+# MacOS 
+.DS_Store

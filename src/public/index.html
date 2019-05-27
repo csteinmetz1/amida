@@ -7,37 +7,37 @@
 </head>
 
 <body>
-  <div class="home">
+  	<div class="home">
 		<div style="margin: 100px 0 25px 0;">
-			<h1>amida</h1>
-			<p>audio mixing interface for data acquisition</p>
+			<a class="home-link" href="/">
+				<h1>amida</h1>
+				<p>audio mixing interface for data acquisition</p>
+			</a>
+		</div>
+		<div style="margin: 40px 0 25px 0;">
+			
+			<p style="text-align: center;">
+				<strong>amida</strong> is a web interface for collecting data on how audio engineers mix. 
+				After entering some background information, users are presented with a virtual mixing console with four channels. 
+				Users can tweak the mix by adjusting the level of these channels until they are satisfied with the mix. 
+				When finished with a mix, users MUST press the <strong>Save</strong> button.
+				This will store the user's mix to the server and mark that song as completed.
+			</p>
+			<br>
+			<p>
+				When you are ready press the <strong> Begin </strong> button below.
+			</p>
 		</div>
 		<div>
 			<button class="save-button" type="btn" onclick="newUser();">
-				<p>New user</p>
+				<p>Begin</p>
 			</button>
-			<button class="save-button" type="btn" onclick="login();">
-				<p>Login</p>
-			</button>
-		</div>
-		<div style="margin: 25px 0 25px 0;">
-			<p>Click <strong>New User</strong> if this is your first time using amida.</p>
-			<p>Click <strong>Login</strong> if you are returning to a session.</p>
-			<br>
-			<br>
-			<h2>about</h2>
-			<p>amida is a web interface for collecting data on how audio engineers mix. 
-				 After logging in users are presented with a virtual mixing console with four
-				 channels. Users can tweak the mix by adjusting the level of these channels util 
-				 they are satisfied with the mix. When finished, pressing the <strong>Save</strong>
-				 button will store the users mix to the server and will mark that song as completed.
-			</p>
 		</div>
 	
 	</div>
 
 	<div class="footer">
-		<p>© 2019 Christian Steinmetz - <a href="https://github.com/csteinmetz1/amida"> source code </a> </p>
+		<p style="margin: 0;">© 2019 Christian Steinmetz - <a href="https://github.com/csteinmetz1/amida"> source code </a> </p>
 	</div>
 
 	<script>

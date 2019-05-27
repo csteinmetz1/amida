@@ -7,22 +7,22 @@
 </head>
 
 <body>
-  <div class="home">
+  	<div class="home">
 		<div style="margin: 100px 0 25px 0;">
-			<h1>amida</h1>
-			<p>audio mixing interface for data acquisition</p>
+			<a class="home-link" href="/">
+				<h1>amida</h1>
+				<p>audio mixing interface for data acquisition</p>
+			</a>
 		</div>
 		<div class="form">
 			<form action="/new-user" method="post">
-			<h3>Create user id</h3>
-			<input type="text" name="id" value="" required placeholder="user id">
-			<p>You will use this to resume your session.</p>
-			<br>
+
 			<h3>Mixing experience</h3>
-			<input type="number" id="number" name="experience" min="0" max="100" placeholder="0" required> years
 			<p>How long have you been mixing music?</p>
-			<br>
+			<input type="number" id="number" name="experience" min="0" max="100" placeholder="0" required> years
+
 			<h3>Playback setup</h3>
+			<p>Which option best describes your listening setup?</p>
 			<div class="select">
 				<span class="arr"></span>
 				<select name="playback" required>
@@ -33,12 +33,11 @@
 					<option value="other">Other</option>
 				</select>
 			</div>
-			<p>Which option best describes your listening setup?</p>
+			<div style="margin: 25px 0 -35px 0;">
+				<p>By clicking submit you agree that your data may be used anonymously as part of a scientific study in accordance with our <a href="privacy_policy.html">privacy policy</a>.</p>
+			</div>
 			<input class="save-button" class type="submit" value="Submit">
 			</form> 
-		</div>
-		<div style="margin: 15px 0 25px 0;">
-			<p>By clicking submit you agree that your data may be used anonymously as part of a scientific study.</p>
 		</div>
 	</div>
 
