@@ -85,6 +85,7 @@ app
   .use(session({secret: 'tk421', resave: false, saveUninitialized: true}));
 
 // routes
+/*
 app.post('/login', function (req, res) { 	
   if (req.session !== undefined) {
     db.ref("users").once("value", function(snapshot) {
@@ -109,6 +110,7 @@ app.post('/login', function (req, res) {
   }
 });
 
+
 app.get('/login', function (req, res) { 	
   var error = {"text" : ""}
   return res.render("login.ejs", error);
@@ -123,11 +125,11 @@ app.get('/logout', function (req, res) {
   }
 });
 
+*/
+
 app.post('/new-user', function (req, res) { 	
   if (req.session !== undefined) {
-    req.session.userId = req.body.id;
     var userData = {
-      "id" : req.body.id,
       "experience" : req.body.experience,
       "playback" : req.body.playback,
     }
@@ -135,9 +137,10 @@ app.post('/new-user', function (req, res) {
       req.session!.songs = snapshot.val();
       res.redirect('/song-list');
     });
-    db.ref("users/" + req.body.id)
-      .set(userData, function() {
+    var new_post_ref = db.ref("users/")
+      .push(userData, function() {
     });
+    req.session.userId = new_post_ref.key;
   }
 });
 

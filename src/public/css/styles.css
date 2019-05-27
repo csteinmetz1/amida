@@ -1,5 +1,5 @@
 .mixer {
-  width: 570px;
+  width: 580px;
   height: 500px;
 
   position:absolute; /*it can be fixed too*/
@@ -245,22 +245,22 @@ input[type="number"] {
   text-align: center;
 }
 
-.song-list > ul {
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.song-list > li {
+li {
   font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
   border-bottom: 1px solid #ccc;
 }
 
-.song-list > li:last-child {
+li:last-child {
   border: none;
 }
 
-.song-list > li a {
+li a {
   text-decoration: none;
   color: #272727;
 
@@ -272,7 +272,7 @@ input[type="number"] {
   display: block;
 }
 
-.song-list > li a:hover {
+li a:hover {
   font-size: 20px;
   background: #f6f6f6;
 }
