@@ -42,7 +42,7 @@
 }
 
 .privacy-policy {
-  text-align: left;
+  text-align: justify;
   width: 600px;
   margin:auto;
 
@@ -119,16 +119,16 @@ p {
   padding: 0;
 }
 
-p.counter {
-  text-align: center;
-}
-
 a, a:link, a:visited, a:focus, a:active {
    color: #272727;
 }
 
 a.home-link {
   text-decoration: none;
+}
+
+.counter {
+  text-align: center;
 }
 
 .song-id {
