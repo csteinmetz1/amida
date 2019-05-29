@@ -131,6 +131,36 @@ a.home-link {
   text-decoration: none;
 }
 
+.song-id {
+  text-align: left;
+  font-weight: 500;
+  font-size: 20px;
+  margin: 10px 10px 0px 10px;
+}
+
+.song-title {
+  text-align: left;
+  font-weight: 400;
+  font-size: 17px;
+  margin: 0px 10px 0px 10px;
+}
+
+.artist {
+  text-align: left;
+  font-weight: 400;
+  font-size: 15px;
+  color: darkgray;
+  margin: 0px 10px 10px 10px;
+}
+
+.song-detail {
+  width: 322px;
+  border: 2px solid #272727; /* Green */
+  left:0; right:0;
+  top:0; bottom:0;
+  margin:auto;
+}
+
 .form {
   display: inline-block;
 	font-weight: lighter;
