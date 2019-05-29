@@ -19,8 +19,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "html": "cp -r ./src/public ./build/public/",
-    "views": "cp -r ./src/views ./build/views/",
+    "html": "rsync -av --exclude 'output' ./src/public ./build/",
+    "views": "cp -r ./src/views ./build/views",
     "keys": " cp ./src/keys.json ./build/keys.json",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
