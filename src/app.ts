@@ -168,8 +168,8 @@ app.post('/new-user', function (req, res) {
     db.ref("songs").once("value", function(snapshot) {
       req.session!.songs = snapshot.val();
       req.session!.mix_order = shuffle(Array.from({length: 100}, (x,i) => i+1));
-      req.session!.nMixes = 0;
-      req.session!.nSkips = 0;
+      db.ref("users/" + req.session!.userId + "/nSkips/").set(0, function() {});
+      db.ref("users/" + req.session!.userId + "/nMixes/").set(0, function() {});
       res.redirect('/mixer/'+ req.session!.mix_order.pop());
     });
     var new_post_ref = db.ref("users/")
@@ -200,11 +200,9 @@ app.get('/next/:id/:type', function (req, res) {
         .once("value", function(snapshot) {
           nMixes = snapshot.val() + 1;
           db.ref("users/" + req.session!.userId + "/nMixes/")
-            .set(nMixes, function() {
-          });
+            .set(nMixes, function() {});
           db.ref("users/" + req.session!.userId + "/mixes/")
-            .push(req.params.id, function() {
-          });
+            .push(req.params.id, function() {});
         })
     }
     res.redirect('/mixer/'+ req.session!.mix_order.pop());
