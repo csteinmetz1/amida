@@ -155,10 +155,17 @@ a.home-link {
 
 .song-detail {
   width: 322px;
-  border: 2px solid #272727; /* Green */
+  border: 2px solid #272727; 
   left:0; right:0;
   top:0; bottom:0;
   margin:auto;
+}
+
+.text-block {
+  text-align: justify;
+
+  margin: 40px 0 25px 0;
+  padding: 20px 20px 20px 20px;
 }
 
 .form {
