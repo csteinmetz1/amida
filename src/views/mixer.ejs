@@ -18,7 +18,7 @@
 		</p>
 	</div>
     <section>
-		<div class="mixer">
+		<div class="mixer fade-in">
 			<div>
 				<tone-content>
 					<p style="margin: 0 0 -22px 0;" id="loading">Loading...</p>
@@ -34,14 +34,13 @@
 					<button class="save-button" type="btn" onclick="save('<%= data.userId %>', '<%= data.song.id %>');"><p>Submit</p></button>
 					<button class="save-button" type="btn" onclick="skip('<%= data.song.id %>')"><p>Skip</p></button>
 					<button class="save-button" type="btn" onclick="exit()"><p>Exit</p></button>
-					<p id="result"></p>
 				</div>
 				<div class="song-detail">
 					<h2 class="song-id"><%= data.song.id %></h2>
 					<h3 class="song-title"><%= data.song.title %> </h3>
 					<h3 class="artist"><%= data.song.artist %> </h3>
 				</div>
-
+				<p id="result"></p>
 			</div>
 
 		</div>
