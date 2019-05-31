@@ -33,7 +33,7 @@
 				<div style="margin: -40px 0 0 0;">
 					<button class="save-button" type="btn" onclick="save('<%= data.userId %>', '<%= data.song.id %>');"><p>Submit</p></button>
 					<button class="save-button" type="btn" onclick="skip('<%= data.song.id %>')"><p>Skip</p></button>
-					<button class="save-button" type="btn" onclick="exit()"><p>Exit</p></button>
+					<button class="save-button" type="btn" onclick="end()"><p>End</p></button>
 				</div>
 				<div class="song-detail">
 					<h2 class="song-id"><%= data.song.id %></h2>
@@ -74,6 +74,10 @@
 
 		function skip(songId) {
 			location.href = `/next/${songId}/skip`;
+		}
+
+		function end() {
+			location.href = '/end';
 		}
 
 		function save(userId, songId) {
