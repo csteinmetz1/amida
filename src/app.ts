@@ -294,3 +294,7 @@ app.get('/save/:userId/:songId/:bass/:drums/:other/:vocals/:time', function (req
 app.listen(80, function () {
   console.log('amida listening on port 80!');
 });
+
+app.get('/end', function (req, res) {
+  res.render("end.ejs")
+});
