@@ -14,11 +14,16 @@
 			<h1>amida</h1>
 			<p>audio mixing interface for data acquisition</p>
 		</a>
+	</div>
 
+	<div>
 		<h2>Thank you for your participation!</h2>
-		<p>You mixed <%= data.nMixes %> songs.</p>
-		<p>And you skipped <%= data.nSkips %>.</p>
+		<p>You mixed <%= userData.nMixes %> songs and you skipped <%= userData.nSkips %>.</p>
+		<p>You spent a total of <%= userData.nSkips %> seconds mixing.</p>
+	</div>
 
+	<div>
+		<h3>Here's how your mixes stacked up</h3>
 	</div>
 
 	<div class="footer">

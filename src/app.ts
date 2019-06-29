@@ -11,7 +11,6 @@ var ServiceAccount = require(__dirname + '/keys.json') as firebase.ServiceAccoun
 
 // interfaces
 interface User {
-  id: string,
   experience: number,
   playback: string,
   mixes: number[],
@@ -296,5 +295,13 @@ app.listen(80, function () {
 });
 
 app.get('/end', function (req, res) {
-  res.render("end.ejs")
+
+  // compute statistics across user mixes
+
+  db.ref("users/" + req.session!.userId)
+  .once("value", function(snapshot) {
+    var userData:User = snapshot.val()
+    console.log(userData)
+    res.render("end.ejs", { userData })
+  })
 });
